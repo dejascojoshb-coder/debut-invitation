@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="You are invited to Quinzeya U-Hee's Eighteen Ever After celebration on December 18, 2026.">
+
+    <title>Quinzeya | Eighteen Ever After</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =================================
+         GUEST VERIFICATION SCREEN
+    ================================== -->
+
+    <main id="verification-screen" class="verification-screen">
+
+        <div class="verification-container">
+
+            <p class="small-heading">
+                A PRIVATE CELEBRATION
+            </p>
+
+            <h1>Are You on the Guest List?</h1>
+
+            <p class="welcome-text">
+                An evening of elegance awaits.
+                Please enter your full name to discover
+                your exclusive invitation.
+            </p>
+
+            <form id="verification-form">
+
+                <label for="guest-name">
+                    FULL NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="guest-name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
+
+                <button type="submit" id="verify-button">
+                    OPEN MY INVITATION
+                </button>
+
+            </form>
+
+            <p
+                id="verification-message"
+                role="status"
+                aria-live="polite">
+            </p>
+
+            <p class="footer-text">
+                EIGHTEEN EVER AFTER · DECEMBER 18, 2026
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =================================
+         INVITATION SCREEN
+    ================================== -->
+
+    <main id="invitation-screen" hidden>
+
+        <!-- ORIGINAL CANVA DESIGN WILL GO HERE -->
+
+        <section id="original-invitation">
+
+            <h1>Quinzeya U-Hee</h1>
+
+            <p>EIGHTEEN EVER AFTER</p>
+
+            <p>DECEMBER 18, 2026</p>
+
+            <!-- LIVE COUNTDOWN -->
+
+            <div id="countdown">
+
+                <div>
+                    <span id="days">00</span>
+                    <small>DAYS</small>
+                </div>
+
+                <div>
+                    <span id="hours">00</span>
+                    <small>HOURS</small>
+                </div>
+
+                <div>
+                    <span id="minutes">00</span>
+                    <small>MINUTES</small>
+                </div>
+
+                <div>
+                    <span id="seconds">00</span>
+                    <small>SECONDS</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             BACKGROUND MUSIC
+        ================================== -->
+
+        <audio id="background-music" loop>
+            <source
+                src="assets/music/background.mp3"
+                type="audio/mpeg">
+            Your browser does not support audio playback.
+        </audio>
+
+        <button id="music-button" type="button">
+            PLAY MUSIC
+        </button>
+
+
+        <!-- =================================
+             RSVP SECTION
+        ================================== -->
+
+        <section id="rsvp-section">
+
+            <h2>RSVP</h2>
+
+            <p>
+                Will you be able to attend?
+            </p>
+
+            <form id="rsvp-form">
+
+                <label for="rsvp-name">
+                    FULL NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="rsvp-name"
+                    placeholder="Verified guest name"
+                    readonly
+                    required
+                >
+
+                <label for="attendance">
+                    ATTENDANCE CONFIRMATION
+                </label>
+
+                <select id="attendance" required>
+
+                    <option value="">
+                        Select your response
+                    </option>
+
+                    <option value="yes">
+                        Yes, I will gladly attend!
+                    </option>
+
+                    <option value="no">
+                        Regretfully, I won't be able to make it.
+                    </option>
+
+                </select>
+
+                <button
+                    type="submit"
+                    id="rsvp-submit-button">
+                    SUBMIT RSVP
+                </button>
+
+            </form>
+
+            <p
+                id="rsvp-message"
+                role="status"
+                aria-live="polite">
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

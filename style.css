@@ -1,0 +1,135 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  background: #eee8f5;
+  color: #493c59;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Guest verification screen */
+#verification-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #e8dff2, #c9b4dc);
+}
+
+#verification-screen form {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px #493c5920;
+}
+
+#verification-screen h1 {
+  margin-top: 0;
+  color: #72558c;
+}
+
+#verification-screen input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border: 1px solid #c9b4dc;
+  border-radius: 8px;
+}
+
+#verification-screen button,
+#rsvp-form button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #80649a;
+  color: white;
+}
+
+#verification-message,
+#rsvp-message {
+  margin-top: 14px;
+}
+
+/* Invitation screen */
+#invitation-screen {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+#invitation-screen[hidden] {
+  display: none;
+}
+
+#original-invitation {
+  max-width: 900px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+#countdown div {
+  min-width: 75px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+#countdown span {
+  display: block;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Music and RSVP */
+#music-button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 30px;
+  background: #80649a;
+  color: white;
+}
+
+#rsvp-form {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+}
+
+#rsvp-form input,
+#rsvp-form select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #c9b4dc;
+  border-radius: 8px;
+}

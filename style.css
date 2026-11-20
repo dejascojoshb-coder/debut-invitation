@@ -1,12 +1,26 @@
 
+/* ==========================================
+   QUINZEYA | EIGHTEEN EVER AFTER
+   COMPLETE WEBSITE STYLESHEET
+========================================== */
+
+
+/* ==========================================
+   1. GLOBAL SETTINGS
+========================================== */
+
 * {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Georgia, serif;
+    font-family: "Montserrat", sans-serif;
     background: #eee8f5;
     color: #493c59;
 }
@@ -21,99 +35,120 @@ button {
     cursor: pointer;
 }
 
-/* =================================
-   GUEST VERIFICATION SCREEN
-================================= */
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+:root {
+    --lavender: #eee8f5;
+    --deep-plum: #493c59;
+    --soft-plum: #766582;
+    --gold: #c6a76b;
+    --white: #ffffff;
+}
+
+
+/* ==========================================
+   2. GENERAL TYPOGRAPHY
+========================================== */
+
+h1,
+h2,
+h3,
+.eyebrow,
+.rsvp-eyebrow,
+.countdown-eyebrow,
+.thank-you-eyebrow {
+    font-family: "Bodoni Moda", serif;
+    font-weight: 500;
+}
+
+p,
+label,
+input,
+button {
+    font-family: "Montserrat", sans-serif;
+}
+
+
+/* ==========================================
+   3. VERIFICATION SCREEN
+========================================== */
 
 .verification-screen {
     min-height: 100vh;
+    min-height: 100svh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
-    background: #eee8f5;
+
+    padding: 35px 20px;
+
+    background:
+        linear-gradient(
+            rgba(238, 232, 245, 0.78),
+            rgba(238, 232, 245, 0.88)
+        ),
+        linear-gradient(135deg, #e5d9ed, #f5edf7);
+
+    animation: fadeIn 1s ease both;
 }
 
 .verification-container {
     width: 100%;
-    max-width: 450px;
-    padding: 40px 28px;
+    max-width: 490px;
+
+    padding: 48px 35px;
+
     text-align: center;
-    background: rgba(255, 255, 255, 0.65);
-    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    border: 1px solid rgba(198, 167, 107, 0.45);
+    border-radius: 4px;
+
+    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.10);
 }
 
-.small-heading {
-    font-size: 11px;
-    letter-spacing: 3px;
+.eyebrow {
+    margin: 0 0 16px;
+
+    color: var(--gold);
+
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 .verification-container h1 {
-    font-size: clamp(27px, 6vw, 38px);
-    margin: 22px 0;
+    margin: 0 0 18px;
+
+    color: var(--deep-plum);
+
+    font-size: clamp(32px, 6vw, 48px);
+    line-height: 1.2;
 }
 
-.welcome-text {
-    line-height: 1.7;
-    font-size: 15px;
-    margin-bottom: 30px;
+.welcome-message {
+    max-width: 370px;
+
+    margin: 0 auto 30px;
+
+    color: var(--soft-plum);
+
+    font-size: 13px;
+    line-height: 1.9;
 }
 
 #verification-form {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 12px;
-}
-
-#verification-form label {
-    font-size: 11px;
-    letter-spacing: 2px;
-}
-
-#verification-form button {
     width: 100%;
-    padding: 15px;
-    margin-top: 8px;
-    border: none;
-    border-radius: 5px;
-    background: #493c59;
-    color: white;
-    letter-spacing: 1px;
 }
-
-#verification-form button:disabled,
-#rsvp-form button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-#verification-message {
-    min-height: 20px;
-    font-size: 14px;
-    margin-top: 15px;
-    text-align: center;
-}
-
-#verification-message.message-error {
-    color: #c62828;
-    font-weight: 600;
-}
-
-#verification-message.message-success {
-    color: #493c59;
-}
-
-.footer-text {
-    margin-top: 35px;
-    font-size: 10px;
-    letter-spacing: 2px;
-}
-
-
-/* =================================
-   FIXED AUTOCOMPLETE POSITION
-================================= */
 
 .autocomplete-wrapper {
     position: relative;
@@ -121,303 +156,1051 @@ button {
 }
 
 #guest-name {
-    display: block;
     width: 100%;
-    padding: 14px;
-    border: 1px solid #b9a9c9;
-    border-radius: 5px;
-    background: white;
-    outline-color: #493c59;
+    height: 50px;
+
+    padding: 0 15px;
+
+    color: var(--deep-plum);
+    background: #ffffff;
+
+    border: 1px solid #d8ccdf;
+    border-radius: 3px;
+
+    outline: none;
+
+    font-size: 13px;
+    text-align: center;
+
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
-/* Suggestions stay attached to the input */
+#guest-name:focus {
+    border-color: var(--gold);
+
+    box-shadow: 0 0 0 3px rgba(198, 167, 107, 0.12);
+}
+
+#guest-name::placeholder {
+    color: #a99bb2;
+}
+
+
+/* Autocomplete dropdown */
 
 .suggestions-list {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 5px);
     left: 0;
-    right: 0;
+
     width: 100%;
     max-height: 220px;
-    overflow-y: auto;
-    z-index: 9999;
-    background: #ffffff;
-    border: 1px solid #b9a9c9;
-    border-radius: 6px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-}
 
-.suggestions-list[hidden] {
-    display: none !important;
+    overflow-y: auto;
+
+    z-index: 100;
+
+    background: #ffffff;
+
+    border: 1px solid #d8ccdf;
+    border-radius: 3px;
+
+    box-shadow: 0 8px 20px rgba(73, 60, 89, 0.12);
 }
 
 .suggestion-item {
     display: block;
+
     width: 100%;
-    padding: 13px 14px;
+
+    padding: 13px 15px;
+
     border: none;
-    border-bottom: 1px solid #eee8f5;
+    border-bottom: 1px solid #f0eaf3;
+
     background: #ffffff;
-    color: #493c59;
+
+    color: var(--deep-plum);
+
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
+
+    transition: background 0.2s ease;
+}
+
+.suggestion-item:hover,
+.suggestion-item:focus {
+    background: #f4eef7;
 }
 
 .suggestion-item:last-child {
     border-bottom: none;
 }
 
-.suggestion-item:hover,
-.suggestion-item:focus {
-    background: #eee8f5;
-    outline: none;
+
+/* Verification button */
+
+#verify-button {
+    width: 100%;
+    min-height: 49px;
+
+    margin-top: 17px;
+
+    border: none;
+    border-radius: 3px;
+
+    background: var(--deep-plum);
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
+}
+
+#verify-button:hover:not(:disabled) {
+    background: #665271;
+    transform: translateY(-2px);
+}
+
+.verification-message {
+    min-height: 18px;
+
+    margin: 15px 0 0;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.verification-message.error,
+#verification-message.message-error {
+    color: #b42332;
+}
+
+.verification-message.success {
+    color: #547b5b;
+}
+
+.verification-footer {
+    margin: 28px 0 0;
+
+    color: #a092aa;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17px;
+    font-style: italic;
 }
 
 
-/* =================================
-   INVITATION WEBSITE
-================================= */
+/* ==========================================
+   4. MAIN INVITATION SCREEN
+========================================== */
 
-#invitation-screen {
+.invitation-screen {
+    width: 100%;
+    overflow: hidden;
+
+    animation: fadeIn 0.8s ease both;
+}
+
+.invitation-gallery {
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .invitation-image-section {
     width: 100%;
     margin: 0;
     padding: 0;
-    line-height: 0;
 }
 
 .invitation-image-section img {
     display: block;
+
     width: 100%;
     height: auto;
-    margin: 0;
-    padding: 0;
+
     object-fit: contain;
 }
 
 
-/* =================================
-   COUNTDOWN BACKGROUND - BG-2
-================================= */
+/* ==========================================
+   5. COUNTDOWN SECTION - BG-2
+========================================== */
 
 .countdown-section {
+    position: relative;
+
     width: 100%;
     min-height: 100vh;
-    position: relative;
+    min-height: 100svh;
+
+    padding: 55vh 20px 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-image: url("assets/images/bg-2.png");
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    background-position: center top;
+    background-size: 100% auto;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    padding-top: 55vh;
-    padding-bottom: 40px;
-}
-
-.countdown-container {
-    width: 90%;
-    max-width: 650px;
-    margin: 0 auto;
     text-align: center;
 }
 
-#countdown {
+.countdown-content {
+    width: 100%;
+    max-width: 900px;
+
+    animation: gentleReveal 1.2s ease both;
+}
+
+.countdown-eyebrow {
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.countdown-content h2 {
+    margin: 0 0 25px;
+
+    color: #ffffff;
+
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 400;
+
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-timer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(10px, 3vw, 28px);
-    width: 100%;
+
+    flex-wrap: wrap;
+
+    gap: clamp(15px, 4vw, 45px);
 }
 
 .countdown-item {
+    min-width: 75px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 0;
 }
 
 .countdown-item span {
-    font-size: clamp(25px, 7vw, 55px);
-    font-weight: bold;
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(42px, 7vw, 65px);
+    font-weight: 600;
     line-height: 1.1;
-    font-variant-numeric: tabular-nums;
+
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .countdown-item small {
-    font-size: clamp(9px, 2vw, 13px);
+    margin-top: 7px;
+
+    color: #ffffff;
+
+    font-family: "Montserrat", sans-serif;
+
+    font-size: 10px;
+    font-weight: 500;
     letter-spacing: 2px;
-    margin-top: 8px;
+    text-transform: uppercase;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-footer {
+    margin-top: 28px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 
-/* =================================
-   RSVP BACKGROUND - BG-1
-================================= */
+/* Portrait background adjustment */
 
-.rsvp-background {
+@media (orientation: portrait) {
+    .countdown-section {
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+
+        min-height: 100svh;
+        padding-top: 55vh;
+    }
+}
+
+
+/* ==========================================
+   6. RSVP SECTION - BG-1
+========================================== */
+
+.rsvp-section {
+    position: relative;
+
     width: 100%;
     min-height: 100vh;
 
-    background-image: url("assets/images/bg-1.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    padding: 75px 20px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: 60px 20px;
+    background-image:
+        linear-gradient(
+            rgba(238, 232, 245, 0.18),
+            rgba(238, 232, 245, 0.35)
+        ),
+        url("assets/images/bg-1.png");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .rsvp-container {
     width: 100%;
-    max-width: 480px;
-    margin: auto;
-    padding: 30px 24px;
+    max-width: 510px;
+
+    padding: 45px 35px;
+
+    background: rgba(255, 255, 255, 0.91);
+
+    border: 1px solid rgba(198, 167, 107, 0.55);
+    border-radius: 4px;
+
+    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.12);
+
     text-align: center;
+
+    animation: gentleReveal 1s ease both;
+}
+
+.rsvp-eyebrow {
+    margin: 0 0 12px;
+
+    color: var(--gold);
+
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 .rsvp-container h2 {
-    margin-top: 0;
+    margin: 0 0 14px;
+
+    color: var(--deep-plum);
+
+    font-size: clamp(34px, 6vw, 46px);
+    font-weight: 500;
 }
 
-#rsvp-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.rsvp-description {
+    margin: 0 auto 30px;
+
+    max-width: 370px;
+
+    color: var(--soft-plum);
+
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.form-group {
+    margin-bottom: 25px;
     text-align: left;
 }
 
-#rsvp-form input,
-#rsvp-form select {
+.form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--deep-plum);
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#rsvp-name {
     width: 100%;
-    padding: 13px;
-    border: 1px solid #b9a9c9;
-    border-radius: 5px;
-    background: white;
-}
+    height: 47px;
 
-#rsvp-form button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    background: #493c59;
-    color: white;
-}
+    padding: 0 13px;
 
-#rsvp-message {
-    text-align: center;
-    margin-top: 15px;
-}
+    background: #f8f5fa;
+    color: var(--deep-plum);
 
+    border: 1px solid #ded3e4;
+    border-radius: 3px;
 
-/* =================================
-   RSVP EXCLUSIVE INVITATION NOTE
-================================= */
-
-.rsvp-note {
-    margin: 22px 0;
-    padding: 16px;
-    border: 1px solid rgba(73, 60, 89, 0.2);
-    border-radius: 10px;
-    text-align: center;
-    line-height: 1.7;
-}
-
-.rsvp-note-heading {
-    margin-bottom: 8px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    font-size: 12px;
-}
-
-.rsvp-note p:last-child {
-    margin: 0;
     font-size: 13px;
 }
 
+.attendance-question {
+    margin: 0 0 16px;
 
-/* =================================
-   MUSIC BUTTON
-================================= */
+    color: var(--deep-plum);
 
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.attendance-options {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    text-align: left;
+}
+
+.attendance-option {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    background: #f8f5fa;
+
+    border: 1px solid #e5dce9;
+    border-radius: 3px;
+
+    color: var(--deep-plum);
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    cursor: pointer;
+
+    transition: border-color 0.3s ease,
+                background 0.3s ease;
+}
+
+.attendance-option:hover {
+    background: #f1eaf5;
+    border-color: var(--gold);
+}
+
+.attendance-option input {
+    accent-color: var(--deep-plum);
+    flex-shrink: 0;
+}
+
+.exclusive-note {
+    margin: 20px 0;
+
+    color: #94869e;
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+#rsvp-submit-button {
+    width: 100%;
+    min-height: 49px;
+
+    border: none;
+    border-radius: 3px;
+
+    background: var(--deep-plum);
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
+}
+
+#rsvp-submit-button:hover:not(:disabled) {
+    background: #665271;
+    transform: translateY(-2px);
+}
+
+.rsvp-message {
+    min-height: 18px;
+
+    margin: 15px 0 0;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.rsvp-message.error {
+    color: #b42332;
+}
+
+.rsvp-message.success {
+    color: #547b5b;
+}
+
+
+/* ==========================================
+   7. THANK YOU CONFIRMATION SCREEN
+========================================== */
+
+.thank-you-screen {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding: 45px 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eee8f5,
+            #f8f2f8,
+            #e8ddec
+        );
+
+    animation: fadeIn 1s ease both;
+}
+
+.thank-you-card {
+    position: relative;
+
+    width: 100%;
+    max-width: 570px;
+
+    padding: 48px 38px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid rgba(198, 167, 107, 0.65);
+
+    box-shadow: 0 18px 55px rgba(73, 60, 89, 0.12);
+
+    animation: gentleReveal 1s ease both;
+}
+
+.thank-you-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 9px;
+
+    border: 1px solid rgba(198, 167, 107, 0.25);
+
+    pointer-events: none;
+}
+
+.thank-you-eyebrow {
+    position: relative;
+
+    margin: 0 0 17px;
+
+    color: var(--gold);
+
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.thank-you-card h1 {
+    position: relative;
+
+    margin: 0 0 12px;
+
+    color: var(--deep-plum);
+
+    font-size: clamp(42px, 8vw, 62px);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.thank-you-message {
+    max-width: 390px;
+
+    margin: 0 auto 25px;
+
+    color: var(--soft-plum);
+
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.thank-you-divider {
+    width: 65px;
+    height: 1px;
+
+    margin: 25px auto;
+
+    background: var(--gold);
+}
+
+.confirmation-label {
+    margin: 25px 0 9px;
+
+    color: #a18da9;
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+#confirmation-name {
+    margin: 0;
+
+    color: var(--deep-plum);
+
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(25px, 5vw, 34px);
+    font-weight: 500;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.table-number-display {
+    width: 130px;
+
+    margin: 15px auto 20px;
+    padding: 16px 10px;
+
+    border: 1px solid rgba(198, 167, 107, 0.7);
+
+    background: #fbf8fc;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.table-number-display span {
+    color: var(--gold);
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.table-number-display strong {
+    color: var(--deep-plum);
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.confirmation-response {
+    max-width: 390px;
+
+    margin: 10px auto 25px;
+
+    color: var(--deep-plum);
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+
+/* Screenshot reminder */
+
+.screenshot-reminder {
+    position: relative;
+
+    margin-top: 30px;
+    padding: 25px 22px;
+
+    background: #f5f0f7;
+
+    border: 1px solid #e6dce9;
+}
+
+.camera-symbol {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--gold);
+
+    font-size: 28px;
+}
+
+.screenshot-reminder h3 {
+    margin: 0 0 12px;
+
+    color: var(--deep-plum);
+
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.screenshot-reminder p {
+    margin: 0 auto 16px;
+
+    max-width: 390px;
+
+    color: #766982;
+
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.screenshot-reminder strong {
+    display: block;
+
+    color: #9b6e4c;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    line-height: 1.8;
+}
+
+.thank-you-footer {
+    margin: 28px 0 0;
+
+    color: #94869e;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px;
+    font-style: italic;
+}
+
+
+/* ==========================================
+   8. MUSIC BUTTON
+========================================== */
+
+.music-toggle,
 #music-button {
     position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: 10000;
-    padding: 12px 18px;
-    border-radius: 30px;
-    border: none;
-    background: #493c59;
-    color: white;
-    font-size: 12px;
-    letter-spacing: 1px;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 999;
+
+    width: 47px;
+    height: 47px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid rgba(198, 167, 107, 0.7);
+    border-radius: 50%;
+
+    background: rgba(73, 60, 89, 0.92);
+    color: #ffffff;
+
+    font-size: 21px;
+
+    box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+
+    transition: transform 0.3s ease,
+                background 0.3s ease;
+}
+
+.music-toggle:hover,
+#music-button:hover {
+    transform: scale(1.06);
+    background: #665271;
+}
+
+.music-toggle.playing,
+#music-button.playing {
+    animation: musicGlow 2.5s ease-in-out infinite;
 }
 
 
-/* =================================
-   HIDDEN ELEMENTS
-================================= */
+/* ==========================================
+   9. ANIMATIONS
+========================================== */
 
-[hidden] {
-    display: none !important;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gentleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes musicGlow {
+    0% {
+        box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 5px 24px rgba(198, 167, 107, 0.55);
+    }
+
+    100% {
+        box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+    }
 }
 
 
-/* =================================
-   MOBILE ADJUSTMENTS
-================================= */
+/* ==========================================
+   10. TABLET RESPONSIVENESS
+========================================== */
+
+@media (max-width: 900px) {
+
+    .countdown-section {
+        padding-top: 50vh;
+    }
+
+    .countdown-timer {
+        gap: 20px;
+    }
+
+    .countdown-item {
+        min-width: 65px;
+    }
+
+    .thank-you-card {
+        max-width: 530px;
+    }
+}
+
+
+/* ==========================================
+   11. MOBILE RESPONSIVENESS
+========================================== */
 
 @media (max-width: 600px) {
 
+    .verification-screen {
+        padding: 20px 15px;
+    }
+
     .verification-container {
-        padding: 32px 20px;
+        padding: 38px 22px;
+    }
+
+    .verification-container h1 {
+        font-size: 35px;
+    }
+
+    .welcome-message {
+        font-size: 12px;
     }
 
     .countdown-section {
-        min-height: 100vh;
-        padding-top: 55vh;
+        padding: 48vh 12px 35px;
     }
 
-    .rsvp-background {
-        padding: 40px 15px;
+    .countdown-content h2 {
+        font-size: 29px;
+    }
+
+    .countdown-eyebrow {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+    .countdown-timer {
+        gap: 13px;
+    }
+
+    .countdown-item {
+        min-width: 60px;
+    }
+
+    .countdown-item span {
+        font-size: 43px;
+    }
+
+    .countdown-item small {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .countdown-footer {
+        font-size: 19px;
+    }
+
+    .rsvp-section {
+        padding: 45px 15px;
     }
 
     .rsvp-container {
-        padding: 24px 16px;
+        padding: 35px 22px;
     }
 
-    .suggestions-list {
-        max-height: 190px;
+    .rsvp-container h2 {
+        font-size: 36px;
     }
 
-}
-/* BG-2 RESPONSIVE ADJUSTMENT */
+    .attendance-option {
+        padding: 12px;
+        font-size: 11px;
+    }
 
-/* Keep the original landscape appearance */
-.countdown-section {
-    background-repeat: no-repeat;
-    background-position: center center;
+    .thank-you-screen {
+        padding: 25px 12px;
+    }
+
+    .thank-you-card {
+        padding: 38px 22px;
+    }
+
+    .thank-you-eyebrow {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+    }
+
+    .thank-you-card h1 {
+        font-size: 45px;
+    }
+
+    .confirmation-label {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    #confirmation-name {
+        font-size: 27px;
+    }
+
+    .table-number-display {
+        width: 115px;
+    }
+
+    .table-number-display strong {
+        font-size: 43px;
+    }
+
+    .confirmation-response {
+        font-size: 21px;
+    }
+
+    .screenshot-reminder {
+        padding: 22px 15px;
+    }
+
+    .screenshot-reminder h3 {
+        font-size: 23px;
+    }
+
+    .screenshot-reminder p {
+        font-size: 10px;
+    }
+
+    .screenshot-reminder strong {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .thank-you-footer {
+        font-size: 17px;
+    }
+
+    .music-toggle,
+    #music-button {
+        width: 43px;
+        height: 43px;
+
+        right: 13px;
+        bottom: 13px;
+    }
 }
 
-/* Portrait screens */
-@media (orientation: portrait) {
-    .countdown-section {
-        background-size: contain;
-        background-position: center center;
-        background-repeat: no-repeat;
+
+/* ==========================================
+   12. SMALL MOBILE SCREENS
+========================================== */
+
+@media (max-width: 360px) {
+
+    .countdown-timer {
+        gap: 8px;
+    }
+
+    .countdown-item {
+        min-width: 55px;
+    }
+
+    .countdown-item span {
+        font-size: 37px;
+    }
+
+    .thank-you-card {
+        padding: 32px 17px;
+    }
+
+    .verification-container {
+        padding: 32px 17px;
+    }
+}
+
+
+/* ==========================================
+   13. REDUCED MOTION ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

@@ -4,28 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quinzeya U-Hee - Eighteen Ever After">
+
     <title>Quinzeya | Eighteen Ever After</title>
+
+    <!-- Elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600;6..96,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- BACKGROUND MUSIC -->
-    <audio id="background-music" loop autoplay>
-        <source src="assets/music/background.mp3" type="audio/mpeg">
-    </audio>
-
+    <!-- ========================= -->
     <!-- GUEST VERIFICATION SCREEN -->
-    <main id="verification-screen" class="verification-screen">
+    <!-- ========================= -->
+
+    <section id="verification-screen" class="verification-screen">
 
         <div class="verification-container">
 
-            <p class="small-heading">QUINZEYA U-HEE'S TURNS 18</p>
+            <p class="eyebrow">
+                QUINZEYA U-HEE'S TURNS 18
+            </p>
 
             <h1>Your Invitation Awaits</h1>
 
-            <p class="welcome-text">
+            <p class="welcome-message">
                 An evening of elegance and unforgettable memories awaits.
                 Please enter the name used for your invitation to view
                 the celebration details.
@@ -33,16 +40,14 @@
 
             <form id="verification-form">
 
-                <label for="guest-name">FULL NAME</label>
-
                 <div class="autocomplete-wrapper">
 
                     <input
                         type="text"
                         id="guest-name"
+                        name="guestName"
                         placeholder="Enter your full name"
                         autocomplete="off"
-                        autocapitalize="words"
                         required
                     >
 
@@ -50,232 +55,330 @@
                         id="guest-suggestions"
                         class="suggestions-list"
                         role="listbox"
-                        hidden>
-                    </div>
+                        hidden
+                    ></div>
 
                 </div>
 
                 <button type="submit" id="verify-button">
-                    OPEN MY INVITATION
+                    View My Invitation
                 </button>
+
+                <p
+                    id="verification-message"
+                    class="verification-message"
+                    aria-live="polite"
+                ></p>
 
             </form>
 
-            <p
-                id="verification-message"
-                role="status"
-                aria-live="polite">
-            </p>
-
-            <p class="footer-text">
-                EIGHTEEN EVER AFTER · DECEMBER 18, 2026
+            <p class="verification-footer">
+                A private celebration awaits.
             </p>
 
         </div>
 
-    </main>
+    </section>
 
 
-    <!-- INVITATION WEBSITE -->
-    <main id="invitation-screen" hidden>
+    <!-- ========================= -->
+    <!-- MAIN INVITATION SCREEN -->
+    <!-- ========================= -->
 
-        <!-- MUSIC CONTROL -->
-        <button id="music-button" type="button">
-            PLAY MUSIC
-        </button>
+    <main id="invitation-screen" class="invitation-screen" hidden>
 
+        <!-- INVITATION IMAGES -->
 
-        <!-- INVITATION IMAGE 01 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="1">
+        <section class="invitation-gallery">
 
-            <img
-                src="assets/images/invitation-01.png"
-                alt="Quinzeya's debut invitation - Part 1"
+            <div
+                class="invitation-image-section"
+                data-invitation-number="1"
             >
+                <img
+                    src="assets/images/invitation-01.png"
+                    alt="Quinzeya debut invitation - Page 1"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="2.1"
+            >
+                <img
+                    src="assets/images/invitation-02.1.png"
+                    alt="Quinzeya debut invitation - Page 2"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="2.2"
+            >
+                <img
+                    src="assets/images/invitation-02.2.png"
+                    alt="Quinzeya debut invitation - Page 3"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="3"
+            >
+                <img
+                    src="assets/images/invitation-03.png"
+                    alt="Quinzeya debut invitation - Page 4"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="4"
+            >
+                <img
+                    src="assets/images/invitation-04.png"
+                    alt="Quinzeya debut invitation - Page 5"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="5"
+            >
+                <img
+                    src="assets/images/invitation-05.png"
+                    alt="Quinzeya debut invitation - Page 6"
+                >
+            </div>
+
+            <div
+                class="invitation-image-section"
+                data-invitation-number="6"
+            >
+                <img
+                    src="assets/images/invitation-06.png"
+                    alt="Quinzeya debut invitation - Page 7"
+                >
+            </div>
 
         </section>
 
 
-        <!-- COUNTDOWN BACKGROUND: BG-2 -->
-        <section class="countdown-section">
+        <!-- ========================= -->
+        <!-- COUNTDOWN SECTION -->
+        <!-- ========================= -->
 
-            <div class="countdown-container">
+        <section class="countdown-section" id="countdown-section">
 
-                <div id="countdown">
+            <div class="countdown-content">
+
+                <p class="countdown-eyebrow">
+                    THE COUNTDOWN BEGINS
+                </p>
+
+                <h2>
+                    Until the Celebration
+                </h2>
+
+                <div class="countdown-timer">
 
                     <div class="countdown-item">
                         <span id="days">00</span>
-                        <small>DAYS</small>
+                        <small>Days</small>
                     </div>
 
                     <div class="countdown-item">
                         <span id="hours">00</span>
-                        <small>HOURS</small>
+                        <small>Hours</small>
                     </div>
 
                     <div class="countdown-item">
                         <span id="minutes">00</span>
-                        <small>MINUTES</small>
+                        <small>Minutes</small>
                     </div>
 
                     <div class="countdown-item">
                         <span id="seconds">00</span>
-                        <small>SECONDS</small>
+                        <small>Seconds</small>
                     </div>
 
                 </div>
+
+                <p class="countdown-footer">
+                    December 18, 2026
+                </p>
 
             </div>
 
         </section>
 
 
-        <!-- INVITATION IMAGE 02.1 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="2.1">
+        <!-- ========================= -->
+        <!-- RSVP SECTION -->
+        <!-- ========================= -->
 
-            <img
-                src="assets/images/invitation-02.1.png"
-                alt="Invitation Part 2.1"
-            >
-
-        </section>
-
-
-        <!-- INVITATION IMAGE 02.2 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="2.2">
-
-            <img
-                src="assets/images/invitation-02.2.png"
-                alt="Invitation Part 2.2"
-            >
-
-        </section>
-
-
-        <!-- INVITATION IMAGE 03 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="3">
-
-            <img
-                src="assets/images/invitation-03.png"
-                alt="Invitation Part 3"
-            >
-
-        </section>
-
-
-        <!-- INVITATION IMAGE 04 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="4">
-
-            <img
-                src="assets/images/invitation-04.png"
-                alt="Invitation Part 4"
-            >
-
-        </section>
-
-
-        <!-- INVITATION IMAGE 05 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="5">
-
-            <img
-                src="assets/images/invitation-05.png"
-                alt="Invitation Part 5"
-            >
-
-        </section>
-
-
-        <!-- INVITATION IMAGE 06 -->
-        <section
-            class="invitation-image-section"
-            data-invitation-number="6">
-
-            <img
-                src="assets/images/invitation-06.png"
-                alt="Invitation Part 6"
-            >
-
-        </section>
-
-
-        <!-- RSVP SECTION: BG-1 -->
-        <section class="rsvp-background">
+        <section class="rsvp-section" id="rsvp-section">
 
             <div class="rsvp-container">
 
-                <h2>RSVP</h2>
+                <p class="rsvp-eyebrow">
+                    KINDLY RESPOND
+                </p>
 
-                <p>Will you be able to attend?</p>
+                <h2>Will You Join Us?</h2>
 
-                <div class="rsvp-note">
-
-                    <p class="rsvp-note-heading">
-                        A PERSONAL INVITATION
-                    </p>
-
-                    <p>
-                        This invitation is exclusively reserved
-                        for the guest whose name appears on the
-                        invitation. We kindly ask that you respect
-                        this arrangement.
-                    </p>
-
-                </div>
+                <p class="rsvp-description">
+                    Your presence would make this celebration
+                    even more meaningful.
+                </p>
 
                 <form id="rsvp-form">
 
-                    <label for="rsvp-name">FULL NAME</label>
+                    <div class="form-group">
 
-                    <input
-                        type="text"
-                        id="rsvp-name"
-                        placeholder="Verified guest name"
-                        readonly
-                        required
+                        <label for="rsvp-name">
+                            Guest Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="rsvp-name"
+                            name="name"
+                            readonly
+                        >
+
+                    </div>
+
+                    <p class="attendance-question">
+                        Will you be attending?
+                    </p>
+
+                    <div class="attendance-options">
+
+                        <label class="attendance-option">
+                            <input
+                                type="radio"
+                                name="attendance"
+                                value="yes"
+                                required
+                            >
+                            <span>Yes, I will gladly attend!</span>
+                        </label>
+
+                        <label class="attendance-option">
+                            <input
+                                type="radio"
+                                name="attendance"
+                                value="no"
+                            >
+                            <span>Regretfully, I won't be able to make it.</span>
+                        </label>
+
+                    </div>
+
+                    <p class="exclusive-note">
+                        This RSVP is exclusive to the invited guest.
+                    </p>
+
+                    <button
+                        type="submit"
+                        id="rsvp-submit-button"
                     >
-
-                    <label for="attendance">
-                        ATTENDANCE CONFIRMATION
-                    </label>
-
-                    <select id="attendance" required>
-
-                        <option value="">
-                            Select your response
-                        </option>
-
-                        <option value="yes">
-                            Yes, I will gladly attend!
-                        </option>
-
-                        <option value="no">
-                            Regretfully, I won't be able to make it.
-                        </option>
-
-                    </select>
-
-                    <button type="submit" id="rsvp-submit-button">
-                        SUBMIT RSVP
+                        Submit RSVP
                     </button>
+
+                    <p
+                        id="rsvp-message"
+                        class="rsvp-message"
+                        aria-live="polite"
+                    ></p>
 
                 </form>
 
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- THANK YOU CONFIRMATION -->
+        <!-- ========================= -->
+
+        <section
+            id="thank-you-screen"
+            class="thank-you-screen"
+            hidden
+        >
+
+            <div class="thank-you-card">
+
+                <p class="thank-you-eyebrow">
+                    QUINZEYA U-HEE'S TURNS 18
+                </p>
+
+                <h1>Thank You!</h1>
+
+                <p class="thank-you-message">
+                    We're looking forward to celebrating
+                    this special occasion with you.
+                </p>
+
+                <div class="thank-you-divider"></div>
+
+                <p class="confirmation-label">
+                    CONFIRMATION FOR
+                </p>
+
+                <h2 id="confirmation-name">
+                    Guest Name
+                </h2>
+
+                <p class="confirmation-label">
+                    YOUR ASSIGNED TABLE
+                </p>
+
+                <div class="table-number-display">
+
+                    <span>TABLE</span>
+
+                    <strong id="confirmation-table">
+                        --
+                    </strong>
+
+                </div>
+
+                <p class="confirmation-label">
+                    YOUR RSVP RESPONSE
+                </p>
+
                 <p
-                    id="rsvp-message"
-                    role="status"
-                    aria-live="polite">
+                    id="confirmation-response"
+                    class="confirmation-response"
+                >
+                    Your response
+                </p>
+
+                <div class="screenshot-reminder">
+
+                    <span class="camera-symbol">✧</span>
+
+                    <h3>A Little Reminder</h3>
+
+                    <p>
+                        Please take a screenshot of this confirmation
+                        and keep it with you. You may be asked to
+                        present it upon arrival to help confirm
+                        your table assignment.
+                    </p>
+
+                    <strong>
+                        DON'T FORGET TO TAKE A SCREENSHOT!
+                    </strong>
+
+                </div>
+
+                <p class="thank-you-footer">
+                    With love, and see you at the celebration.
                 </p>
 
             </div>
@@ -285,6 +388,27 @@
     </main>
 
 
+    <!-- ========================= -->
+    <!-- BACKGROUND MUSIC -->
+    <!-- ========================= -->
+
+    <audio
+        id="background-music"
+        src="assets/music/background.mp3"
+        loop
+    ></audio>
+
+    <button
+        id="music-toggle"
+        class="music-toggle"
+        type="button"
+        aria-label="Toggle background music"
+    >
+        ♫
+    </button>
+
+
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>

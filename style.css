@@ -1,9 +1,8 @@
 
 /* ==========================================
    QUINZEYA | EIGHTEEN EVER AFTER
-   COMPLETE WEBSITE STYLESHEET
+   COMPLETE STYLESHEET
 ========================================== */
-
 
 /* ==========================================
    1. GLOBAL SETTINGS
@@ -13,6 +12,19 @@
     box-sizing: border-box;
 }
 
+:root {
+    --background: #eee8f5;
+    --deep-plum: #493c59;
+    --soft-plum: #766582;
+    --light-plum: #a99ab7;
+    --champagne: #c6a76b;
+    --soft-gold: #b99b75;
+    --cream: #fffdf9;
+    --white: #ffffff;
+    --error: #b84a4a;
+    --success: #567b61;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -20,9 +32,9 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: "Montserrat", sans-serif;
-    background: #eee8f5;
-    color: #493c59;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    background: var(--background);
+    color: var(--deep-plum);
 }
 
 button,
@@ -44,359 +56,276 @@ button:disabled {
     display: none !important;
 }
 
-:root {
-    --lavender: #eee8f5;
-    --deep-plum: #493c59;
-    --soft-plum: #766582;
-    --gold: #c6a76b;
-    --white: #ffffff;
-}
-
 
 /* ==========================================
-   2. GENERAL TYPOGRAPHY
-========================================== */
-
-h1,
-h2,
-h3,
-.eyebrow,
-.rsvp-eyebrow,
-.countdown-eyebrow,
-.thank-you-eyebrow {
-    font-family: "Bodoni Moda", serif;
-    font-weight: 500;
-}
-
-p,
-label,
-input,
-button {
-    font-family: "Montserrat", sans-serif;
-}
-
-
-/* ==========================================
-   3. VERIFICATION SCREEN
+   2. GUEST VERIFICATION SCREEN
 ========================================== */
 
 .verification-screen {
     min-height: 100vh;
     min-height: 100svh;
-
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     padding: 35px 20px;
-
     background:
         linear-gradient(
-            rgba(238, 232, 245, 0.78),
-            rgba(238, 232, 245, 0.88)
-        ),
-        linear-gradient(135deg, #e5d9ed, #f5edf7);
-
-    animation: fadeIn 1s ease both;
+            rgba(238, 232, 245, 0.88),
+            rgba(238, 232, 245, 0.94)
+        );
 }
 
 .verification-container {
     width: 100%;
     max-width: 490px;
-
-    padding: 48px 35px;
-
+    padding: 55px 38px;
     text-align: center;
-
-    background: rgba(255, 255, 255, 0.82);
-
-    border: 1px solid rgba(198, 167, 107, 0.45);
-    border-radius: 4px;
-
-    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.10);
+    background: rgba(255, 253, 249, 0.88);
+    border: 1px solid rgba(198, 167, 107, 0.55);
+    box-shadow: 0 15px 50px rgba(73, 60, 89, 0.08);
+    animation: fadeIn 1s ease;
 }
 
 .eyebrow {
-    margin: 0 0 16px;
-
-    color: var(--gold);
-
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    margin: 0 0 18px;
+    color: var(--soft-gold);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    line-height: 1.8;
 }
 
 .verification-container h1 {
-    margin: 0 0 18px;
-
-    color: var(--deep-plum);
-
-    font-size: clamp(32px, 6vw, 48px);
+    margin: 0 0 20px;
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(32px, 6vw, 43px);
+    font-weight: 500;
     line-height: 1.2;
 }
 
 .welcome-message {
     max-width: 370px;
-
     margin: 0 auto 30px;
-
     color: var(--soft-plum);
-
-    font-size: 13px;
-    line-height: 1.9;
+    font-size: 19px;
+    line-height: 1.6;
 }
 
-#verification-form {
+.verification-form {
     width: 100%;
 }
 
 .autocomplete-wrapper {
     position: relative;
     width: 100%;
+    margin-bottom: 18px;
 }
 
 #guest-name {
     width: 100%;
-    height: 50px;
-
-    padding: 0 15px;
-
-    color: var(--deep-plum);
-    background: #ffffff;
-
-    border: 1px solid #d8ccdf;
-    border-radius: 3px;
-
+    min-height: 52px;
+    padding: 14px 16px;
+    border: 1px solid #d8cbdc;
+    border-radius: 2px;
     outline: none;
-
+    background: var(--white);
+    color: var(--deep-plum);
+    font-family: "Montserrat", sans-serif;
     font-size: 13px;
     text-align: center;
-
-    transition: border-color 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #guest-name:focus {
-    border-color: var(--gold);
-
+    border-color: var(--champagne);
     box-shadow: 0 0 0 3px rgba(198, 167, 107, 0.12);
 }
 
 #guest-name::placeholder {
-    color: #a99bb2;
+    color: #a99eae;
 }
 
 
-/* Autocomplete dropdown */
+/* ==========================================
+   3. AUTOCOMPLETE SUGGESTIONS
+========================================== */
 
 .suggestions-list {
     position: absolute;
+    z-index: 100;
     top: calc(100% + 5px);
     left: 0;
-
     width: 100%;
     max-height: 220px;
-
     overflow-y: auto;
-
-    z-index: 100;
-
-    background: #ffffff;
-
-    border: 1px solid #d8ccdf;
-    border-radius: 3px;
-
-    box-shadow: 0 8px 20px rgba(73, 60, 89, 0.12);
+    padding: 5px;
+    border: 1px solid #d8cbdc;
+    background: var(--white);
+    box-shadow: 0 10px 25px rgba(73, 60, 89, 0.12);
+    text-align: left;
 }
 
 .suggestion-item {
     display: block;
-
     width: 100%;
-
-    padding: 13px 15px;
-
+    padding: 12px 14px;
     border: none;
-    border-bottom: 1px solid #f0eaf3;
-
-    background: #ffffff;
-
+    background: transparent;
     color: var(--deep-plum);
-
-    text-align: left;
+    font-family: "Montserrat", sans-serif;
     font-size: 12px;
-
+    text-align: left;
     transition: background 0.2s ease;
 }
 
 .suggestion-item:hover,
 .suggestion-item:focus {
-    background: #f4eef7;
+    outline: none;
+    background: #f1ebf5;
 }
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-
-/* Verification button */
 
 #verify-button {
     width: 100%;
-    min-height: 49px;
-
-    margin-top: 17px;
-
-    border: none;
-    border-radius: 3px;
-
+    min-height: 52px;
+    padding: 14px 20px;
+    border: 1px solid var(--soft-gold);
+    border-radius: 2px;
     background: var(--deep-plum);
-    color: #ffffff;
-
+    color: var(--white);
+    font-family: "Montserrat", sans-serif;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-
-    transition: background 0.3s ease,
-                transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
-#verify-button:hover:not(:disabled) {
-    background: #665271;
+#verify-button:hover {
+    background: var(--soft-plum);
     transform: translateY(-2px);
 }
 
 .verification-message {
-    min-height: 18px;
-
+    min-height: 20px;
     margin: 15px 0 0;
-
+    font-family: "Montserrat", sans-serif;
     font-size: 11px;
     line-height: 1.6;
 }
 
 .verification-message.error,
-#verification-message.message-error {
-    color: #b42332;
+.rsvp-message.error {
+    color: var(--error);
 }
 
-.verification-message.success {
-    color: #547b5b;
+.verification-message.success,
+.rsvp-message.success {
+    color: var(--success);
 }
 
 .verification-footer {
-    margin: 28px 0 0;
-
-    color: #a092aa;
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 17px;
+    margin: 30px 0 0;
+    color: var(--soft-plum);
+    font-size: 16px;
     font-style: italic;
 }
 
 
 /* ==========================================
-   4. MAIN INVITATION SCREEN
+   4. INVITATION GALLERY
 ========================================== */
 
 .invitation-screen {
     width: 100%;
     overflow: hidden;
-
-    animation: fadeIn 0.8s ease both;
+    background: var(--background);
 }
 
 .invitation-gallery {
     width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 .invitation-image-section {
     width: 100%;
     margin: 0;
     padding: 0;
+    line-height: 0;
+    background: var(--background);
 }
 
 .invitation-image-section img {
     display: block;
-
     width: 100%;
     height: auto;
-
+    max-width: 100%;
+    margin: 0 auto;
     object-fit: contain;
 }
 
 
 /* ==========================================
-   5. COUNTDOWN SECTION - BG-2
+   5. COUNTDOWN SECTION
 ========================================== */
 
 .countdown-section {
     position: relative;
-
     width: 100%;
-    min-height: 100vh;
-    min-height: 100svh;
-
-    padding: 55vh 20px 55px;
-
+    min-height: 520px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 70px 20px;
+    overflow: hidden;
 
-    background-image: url("assets/images/bg-2.png");
+    background-color: var(--deep-plum);
+    background-image:
+        linear-gradient(
+            rgba(38, 28, 47, 0.20),
+            rgba(38, 28, 47, 0.20)
+        ),
+        url("assets/images/bg-2.png");
+
+    background-position: center;
     background-repeat: no-repeat;
-    background-position: center top;
-    background-size: 100% auto;
-
-    text-align: center;
+    background-size: contain;
 }
 
 .countdown-content {
     width: 100%;
-    max-width: 900px;
-
-    animation: gentleReveal 1.2s ease both;
+    max-width: 650px;
+    text-align: center;
+    color: var(--white);
 }
 
 .countdown-eyebrow {
-    margin: 0 0 10px;
-
-    color: #ffffff;
-
-    font-size: 13px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    margin: 0 0 15px;
+    color: #f0d9b0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
 }
 
 .countdown-content h2 {
-    margin: 0 0 25px;
-
-    color: #ffffff;
-
-    font-size: clamp(28px, 5vw, 48px);
+    margin: 0 0 35px;
+    color: var(--white);
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(28px, 5vw, 44px);
     font-weight: 400;
-
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    line-height: 1.3;
 }
 
 .countdown-timer {
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     flex-wrap: wrap;
-
-    gap: clamp(15px, 4vw, 45px);
+    gap: clamp(15px, 4vw, 35px);
 }
 
 .countdown-item {
     min-width: 75px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -404,132 +333,92 @@ button {
 
 .countdown-item span {
     color: #ffffff;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: clamp(42px, 7vw, 65px);
-    font-weight: 600;
-    line-height: 1.1;
-
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(36px, 7vw, 55px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    font-variant-numeric: tabular-nums;
 }
 
 .countdown-item small {
-    margin-top: 7px;
-
-    color: #ffffff;
-
+    margin-top: 8px;
+    color: #f0d9b0;
     font-family: "Montserrat", sans-serif;
-
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 9px;
+    font-weight: 400;
     letter-spacing: 2px;
     text-transform: uppercase;
-
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .countdown-footer {
-    margin-top: 28px;
-
-    color: #ffffff;
-
+    margin: 35px 0 0;
+    color: var(--white);
     font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    letter-spacing: 2px;
-
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-
-/* Portrait background adjustment */
-
-@media (orientation: portrait) {
-    .countdown-section {
-        background-size: contain;
-        background-position: center top;
-        background-repeat: no-repeat;
-
-        min-height: 100svh;
-        padding-top: 55vh;
-    }
+    font-size: 20px;
+    font-style: italic;
+    letter-spacing: 1px;
 }
 
 
 /* ==========================================
-   6. RSVP SECTION - BG-1
+   6. RSVP SECTION
 ========================================== */
 
 .rsvp-section {
     position: relative;
-
     width: 100%;
-    min-height: 100vh;
-
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 75px 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    background-color: #eee8f5;
     background-image:
         linear-gradient(
-            rgba(238, 232, 245, 0.18),
-            rgba(238, 232, 245, 0.35)
+            rgba(238, 232, 245, 0.22),
+            rgba(238, 232, 245, 0.22)
         ),
         url("assets/images/bg-1.png");
 
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
 .rsvp-container {
     width: 100%;
-    max-width: 510px;
-
+    max-width: 490px;
     padding: 45px 35px;
-
-    background: rgba(255, 255, 255, 0.91);
-
-    border: 1px solid rgba(198, 167, 107, 0.55);
-    border-radius: 4px;
-
-    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.12);
-
+    border: 1px solid rgba(198, 167, 107, 0.65);
+    background: rgba(255, 253, 249, 0.94);
+    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.10);
     text-align: center;
-
-    animation: gentleReveal 1s ease both;
 }
 
 .rsvp-eyebrow {
     margin: 0 0 12px;
-
-    color: var(--gold);
-
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    color: var(--soft-gold);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 
 .rsvp-container h2 {
-    margin: 0 0 14px;
-
+    margin: 0 0 15px;
     color: var(--deep-plum);
-
-    font-size: clamp(34px, 6vw, 46px);
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(30px, 5vw, 39px);
     font-weight: 500;
 }
 
 .rsvp-description {
     margin: 0 auto 30px;
-
-    max-width: 370px;
-
     color: var(--soft-plum);
-
-    font-size: 12px;
-    line-height: 1.9;
+    font-size: 18px;
+    line-height: 1.6;
 }
 
 .form-group {
@@ -539,438 +428,429 @@ button {
 
 .form-group label {
     display: block;
-
     margin-bottom: 9px;
-
     color: var(--deep-plum);
-
+    font-family: "Montserrat", sans-serif;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
 #rsvp-name {
     width: 100%;
-    height: 47px;
-
-    padding: 0 13px;
-
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #d8cbdc;
+    border-radius: 2px;
+    outline: none;
     background: #f8f5fa;
     color: var(--deep-plum);
-
-    border: 1px solid #ded3e4;
-    border-radius: 3px;
-
-    font-size: 13px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
 }
 
 .attendance-question {
     margin: 0 0 16px;
-
     color: var(--deep-plum);
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
+    font-size: 19px;
     font-weight: 600;
+    text-align: left;
 }
 
 .attendance-options {
     display: flex;
     flex-direction: column;
-
     gap: 12px;
-
     text-align: left;
 }
 
 .attendance-option {
     display: flex;
-    align-items: center;
-
-    gap: 12px;
-
+    align-items: flex-start;
+    gap: 11px;
     padding: 14px;
-
-    background: #f8f5fa;
-
-    border: 1px solid #e5dce9;
-    border-radius: 3px;
-
+    border: 1px solid #e1d7e5;
+    background: #fffdfd;
     color: var(--deep-plum);
-
-    font-size: 12px;
-    line-height: 1.6;
-
+    font-size: 17px;
+    line-height: 1.4;
     cursor: pointer;
-
-    transition: border-color 0.3s ease,
-                background 0.3s ease;
+    transition: border-color 0.25s ease, background 0.25s ease;
 }
 
 .attendance-option:hover {
-    background: #f1eaf5;
-    border-color: var(--gold);
+    border-color: var(--champagne);
+    background: #faf7fc;
 }
 
 .attendance-option input {
-    accent-color: var(--deep-plum);
     flex-shrink: 0;
+    margin-top: 5px;
+    accent-color: var(--deep-plum);
 }
 
 .exclusive-note {
-    margin: 20px 0;
-
-    color: #94869e;
-
-    font-size: 10px;
-    line-height: 1.7;
+    margin: 22px 0;
+    color: var(--soft-plum);
+    font-size: 14px;
+    font-style: italic;
 }
 
 #rsvp-submit-button {
     width: 100%;
-    min-height: 49px;
-
-    border: none;
-    border-radius: 3px;
-
+    min-height: 52px;
+    padding: 14px 20px;
+    border: 1px solid var(--soft-gold);
+    border-radius: 2px;
     background: var(--deep-plum);
-    color: #ffffff;
-
+    color: var(--white);
+    font-family: "Montserrat", sans-serif;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-
-    transition: background 0.3s ease,
-                transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 #rsvp-submit-button:hover:not(:disabled) {
-    background: #665271;
+    background: var(--soft-plum);
     transform: translateY(-2px);
 }
 
 .rsvp-message {
-    min-height: 18px;
-
+    min-height: 20px;
     margin: 15px 0 0;
-
+    font-family: "Montserrat", sans-serif;
     font-size: 11px;
     line-height: 1.6;
 }
 
-.rsvp-message.error {
-    color: #b42332;
+
+/* ==========================================
+   7. VIEW MY CONFIRMATION BUTTON
+========================================== */
+
+.view-confirmation-button {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    min-height: 50px;
+    margin: 20px auto;
+    padding: 14px 20px;
+
+    border: 1px solid var(--soft-gold);
+    border-radius: 2px;
+
+    background: var(--deep-plum);
+    color: var(--white);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
 }
 
-.rsvp-message.success {
-    color: #547b5b;
+.view-confirmation-button:hover {
+    background: var(--soft-plum);
+    transform: translateY(-2px);
+}
+
+.view-confirmation-button:focus-visible {
+    outline: 2px solid var(--champagne);
+    outline-offset: 4px;
+}
+
+.view-confirmation-button[hidden] {
+    display: none !important;
 }
 
 
 /* ==========================================
-   7. THANK YOU CONFIRMATION SCREEN
+   8. PREVIOUS RSVP CONFIRMATION
+========================================== */
+
+.previous-confirmation {
+    width: 100%;
+    max-width: 480px;
+    margin: 28px auto 10px;
+    padding: 30px 25px;
+
+    border: 1px solid var(--soft-gold);
+    background: rgba(255, 253, 249, 0.97);
+    color: var(--deep-plum);
+
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px;
+    line-height: 1.6;
+
+    box-shadow: 0 10px 30px rgba(73, 60, 89, 0.08);
+
+    animation: confirmationFadeIn 0.7s ease;
+}
+
+.previous-confirmation[hidden] {
+    display: none !important;
+}
+
+.confirmation-heading {
+    margin: 0 0 22px;
+    color: #8d7055;
+    font-family: "Bodoni Moda", serif;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.previous-confirmation p {
+    margin: 12px 0;
+}
+
+.previous-confirmation strong {
+    color: var(--deep-plum);
+    font-weight: 700;
+}
+
+.confirmation-reminder {
+    margin-top: 25px !important;
+    padding-top: 20px;
+    border-top: 1px solid #d8c8b5;
+    color: var(--soft-plum);
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   9. THANK YOU SCREEN
 ========================================== */
 
 .thank-you-screen {
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
-
-    padding: 45px 18px;
-
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
 
     background:
         linear-gradient(
-            135deg,
-            #eee8f5,
-            #f8f2f8,
-            #e8ddec
+            rgba(238, 232, 245, 0.94),
+            rgba(238, 232, 245, 0.97)
         );
-
-    animation: fadeIn 1s ease both;
 }
 
 .thank-you-card {
-    position: relative;
-
     width: 100%;
     max-width: 570px;
+    padding: 50px 38px;
 
-    padding: 48px 38px;
+    border: 1px solid rgba(198, 167, 107, 0.7);
+    background: rgba(255, 253, 249, 0.96);
+
+    box-shadow: 0 15px 50px rgba(73, 60, 89, 0.10);
 
     text-align: center;
-
-    background: rgba(255, 255, 255, 0.94);
-
-    border: 1px solid rgba(198, 167, 107, 0.65);
-
-    box-shadow: 0 18px 55px rgba(73, 60, 89, 0.12);
-
-    animation: gentleReveal 1s ease both;
-}
-
-.thank-you-card::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 9px;
-
-    border: 1px solid rgba(198, 167, 107, 0.25);
-
-    pointer-events: none;
+    animation: fadeIn 0.9s ease;
 }
 
 .thank-you-eyebrow {
-    position: relative;
-
-    margin: 0 0 17px;
-
-    color: var(--gold);
-
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    margin: 0 0 15px;
+    color: var(--soft-gold);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 
 .thank-you-card h1 {
-    position: relative;
-
-    margin: 0 0 12px;
-
+    margin: 0 0 15px;
     color: var(--deep-plum);
-
-    font-size: clamp(42px, 8vw, 62px);
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(38px, 7vw, 52px);
     font-weight: 500;
-    line-height: 1.1;
 }
 
 .thank-you-message {
-    max-width: 390px;
-
+    max-width: 400px;
     margin: 0 auto 25px;
-
     color: var(--soft-plum);
-
-    font-size: 12px;
-    line-height: 1.9;
+    font-size: 20px;
+    line-height: 1.6;
 }
 
 .thank-you-divider {
-    width: 65px;
+    width: 75px;
     height: 1px;
-
-    margin: 25px auto;
-
-    background: var(--gold);
+    margin: 28px auto;
+    background: var(--champagne);
 }
 
 .confirmation-label {
     margin: 25px 0 9px;
-
-    color: #a18da9;
-
+    color: var(--soft-gold);
+    font-family: "Montserrat", sans-serif;
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 #confirmation-name {
     margin: 0;
-
     color: var(--deep-plum);
-
     font-family: "Bodoni Moda", serif;
-    font-size: clamp(25px, 5vw, 34px);
+    font-size: clamp(24px, 5vw, 34px);
     font-weight: 500;
-    line-height: 1.4;
-
-    overflow-wrap: anywhere;
 }
 
 .table-number-display {
-    width: 130px;
-
-    margin: 15px auto 20px;
-    padding: 16px 10px;
-
-    border: 1px solid rgba(198, 167, 107, 0.7);
-
-    background: #fbf8fc;
-
+    width: 120px;
+    min-height: 115px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 5px;
 
-    gap: 4px;
+    margin: 15px auto 25px;
+    border: 1px solid var(--champagne);
+
+    background: #f9f5ee;
+    color: var(--deep-plum);
 }
 
 .table-number-display span {
-    color: var(--gold);
-
+    font-family: "Montserrat", sans-serif;
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 .table-number-display strong {
-    color: var(--deep-plum);
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 1.1;
+    font-family: "Bodoni Moda", serif;
+    font-size: 39px;
+    font-weight: 500;
 }
 
 .confirmation-response {
-    max-width: 390px;
-
-    margin: 10px auto 25px;
-
+    margin: 12px 0;
     color: var(--deep-plum);
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
-    font-weight: 600;
+    font-size: 20px;
+    font-style: italic;
     line-height: 1.5;
 }
 
 
-/* Screenshot reminder */
+/* ==========================================
+   10. SCREENSHOT REMINDER
+========================================== */
 
 .screenshot-reminder {
-    position: relative;
-
-    margin-top: 30px;
+    margin: 35px 0 25px;
     padding: 25px 22px;
 
-    background: #f5f0f7;
+    border: 1px solid #e2d5c3;
+    background: #faf7f1;
 
-    border: 1px solid #e6dce9;
+    color: var(--deep-plum);
 }
 
 .camera-symbol {
     display: block;
-
     margin-bottom: 8px;
-
-    color: var(--gold);
-
-    font-size: 28px;
+    color: var(--soft-gold);
+    font-size: 29px;
 }
 
 .screenshot-reminder h3 {
     margin: 0 0 12px;
-
     color: var(--deep-plum);
-
+    font-family: "Bodoni Moda", serif;
     font-size: 25px;
     font-weight: 500;
 }
 
 .screenshot-reminder p {
-    margin: 0 auto 16px;
-
-    max-width: 390px;
-
-    color: #766982;
-
-    font-size: 11px;
-    line-height: 1.9;
+    margin: 0 0 18px;
+    color: var(--soft-plum);
+    font-size: 17px;
+    line-height: 1.6;
 }
 
 .screenshot-reminder strong {
     display: block;
-
-    color: #9b6e4c;
-
+    color: #9b7651;
+    font-family: "Montserrat", sans-serif;
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 1.5px;
     line-height: 1.8;
 }
 
 .thank-you-footer {
-    margin: 28px 0 0;
-
-    color: #94869e;
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 19px;
+    margin: 30px 0 0;
+    color: var(--soft-plum);
+    font-size: 18px;
     font-style: italic;
 }
 
 
 /* ==========================================
-   8. MUSIC BUTTON
+   11. BACKGROUND MUSIC BUTTON
 ========================================== */
 
-.music-toggle,
-#music-button {
+.music-toggle {
     position: fixed;
+    z-index: 500;
+    right: 22px;
+    bottom: 22px;
 
-    right: 20px;
-    bottom: 20px;
-
-    z-index: 999;
-
-    width: 47px;
-    height: 47px;
+    width: 48px;
+    height: 48px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    border: 1px solid rgba(198, 167, 107, 0.7);
+    border: 1px solid rgba(198, 167, 107, 0.85);
     border-radius: 50%;
 
     background: rgba(73, 60, 89, 0.92);
-    color: #ffffff;
+    color: var(--white);
 
-    font-size: 21px;
+    font-family: Georgia, serif;
+    font-size: 22px;
 
-    box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
 
-    transition: transform 0.3s ease,
-                background 0.3s ease;
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
 }
 
-.music-toggle:hover,
-#music-button:hover {
-    transform: scale(1.06);
-    background: #665271;
+.music-toggle:hover {
+    background: var(--soft-plum);
+    transform: scale(1.07);
 }
 
-.music-toggle.playing,
-#music-button.playing {
-    animation: musicGlow 2.5s ease-in-out infinite;
+.music-toggle.playing {
+    animation: musicPulse 2s ease-in-out infinite;
 }
 
 
 /* ==========================================
-   9. ANIMATIONS
+   12. ANIMATIONS
 ========================================== */
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes gentleReveal {
-    from {
-        opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(12px);
     }
 
     to {
@@ -979,37 +859,45 @@ button {
     }
 }
 
-@keyframes musicGlow {
-    0% {
-        box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+@keyframes confirmationFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
 
-    50% {
-        box-shadow: 0 5px 24px rgba(198, 167, 107, 0.55);
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes musicPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(198, 167, 107, 0.35);
+    }
+
+    70% {
+        box-shadow: 0 0 0 9px rgba(198, 167, 107, 0);
     }
 
     100% {
-        box-shadow: 0 5px 18px rgba(73, 60, 89, 0.2);
+        box-shadow: 0 0 0 0 rgba(198, 167, 107, 0);
     }
 }
 
 
 /* ==========================================
-   10. TABLET RESPONSIVENESS
+   13. TABLET RESPONSIVENESS
 ========================================== */
 
 @media (max-width: 900px) {
-
     .countdown-section {
-        padding-top: 50vh;
+        min-height: 450px;
+        padding: 60px 20px;
     }
 
-    .countdown-timer {
-        gap: 20px;
-    }
-
-    .countdown-item {
-        min-width: 65px;
+    .rsvp-section {
+        padding: 60px 20px;
     }
 
     .thank-you-card {
@@ -1019,50 +907,45 @@ button {
 
 
 /* ==========================================
-   11. MOBILE RESPONSIVENESS
+   14. MOBILE RESPONSIVENESS
 ========================================== */
 
 @media (max-width: 600px) {
 
     .verification-screen {
-        padding: 20px 15px;
+        padding: 22px 15px;
     }
 
     .verification-container {
-        padding: 38px 22px;
-    }
-
-    .verification-container h1 {
-        font-size: 35px;
+        padding: 42px 23px;
     }
 
     .welcome-message {
-        font-size: 12px;
+        font-size: 17px;
     }
 
     .countdown-section {
-        padding: 48vh 12px 35px;
+        min-height: 380px;
+        padding: 45px 12px;
+
+        background-size: contain;
+        background-position: center;
     }
 
     .countdown-content h2 {
-        font-size: 29px;
-    }
-
-    .countdown-eyebrow {
-        font-size: 10px;
-        letter-spacing: 3px;
+        margin-bottom: 25px;
     }
 
     .countdown-timer {
-        gap: 13px;
+        gap: 12px;
     }
 
     .countdown-item {
-        min-width: 60px;
+        min-width: 62px;
     }
 
     .countdown-item span {
-        font-size: 43px;
+        font-size: 38px;
     }
 
     .countdown-item small {
@@ -1071,101 +954,85 @@ button {
     }
 
     .countdown-footer {
-        font-size: 19px;
+        margin-top: 25px;
+        font-size: 17px;
     }
 
     .rsvp-section {
+        min-height: 600px;
         padding: 45px 15px;
+        background-position: center;
     }
 
     .rsvp-container {
         padding: 35px 22px;
     }
 
-    .rsvp-container h2 {
-        font-size: 36px;
+    .rsvp-description {
+        font-size: 17px;
     }
 
     .attendance-option {
         padding: 12px;
-        font-size: 11px;
+        font-size: 16px;
+    }
+
+    .view-confirmation-button {
+        max-width: 100%;
+    }
+
+    .previous-confirmation {
+        padding: 25px 18px;
+        font-size: 18px;
     }
 
     .thank-you-screen {
-        padding: 25px 12px;
+        padding: 25px 14px;
     }
 
     .thank-you-card {
         padding: 38px 22px;
     }
 
-    .thank-you-eyebrow {
-        font-size: 9px;
-        letter-spacing: 2.5px;
-    }
-
-    .thank-you-card h1 {
-        font-size: 45px;
-    }
-
-    .confirmation-label {
-        font-size: 9px;
-        letter-spacing: 2px;
-    }
-
-    #confirmation-name {
-        font-size: 27px;
-    }
-
-    .table-number-display {
-        width: 115px;
-    }
-
-    .table-number-display strong {
-        font-size: 43px;
-    }
-
-    .confirmation-response {
-        font-size: 21px;
+    .thank-you-message {
+        font-size: 18px;
     }
 
     .screenshot-reminder {
-        padding: 22px 15px;
-    }
-
-    .screenshot-reminder h3 {
-        font-size: 23px;
+        padding: 22px 16px;
     }
 
     .screenshot-reminder p {
-        font-size: 10px;
+        font-size: 16px;
     }
 
-    .screenshot-reminder strong {
-        font-size: 9px;
-        letter-spacing: 1px;
-    }
-
-    .thank-you-footer {
-        font-size: 17px;
-    }
-
-    .music-toggle,
-    #music-button {
+    .music-toggle {
+        right: 15px;
+        bottom: 15px;
         width: 43px;
         height: 43px;
-
-        right: 13px;
-        bottom: 13px;
     }
 }
 
 
 /* ==========================================
-   12. SMALL MOBILE SCREENS
+   15. SMALL MOBILE SCREENS
 ========================================== */
 
-@media (max-width: 360px) {
+@media (max-width: 380px) {
+
+    .verification-container {
+        padding: 35px 18px;
+    }
+
+    .verification-container h1 {
+        font-size: 30px;
+    }
+
+    .countdown-section {
+        min-height: 320px;
+        padding: 35px 8px;
+    }
 
     .countdown-timer {
         gap: 8px;
@@ -1176,22 +1043,81 @@ button {
     }
 
     .countdown-item span {
-        font-size: 37px;
+        font-size: 33px;
+    }
+
+    .countdown-item small {
+        font-size: 7px;
+    }
+
+    .rsvp-container {
+        padding: 30px 17px;
     }
 
     .thank-you-card {
         padding: 32px 17px;
     }
 
-    .verification-container {
-        padding: 32px 17px;
+    .table-number-display {
+        width: 105px;
+        min-height: 105px;
     }
 }
 
 
 /* ==========================================
-   13. REDUCED MOTION ACCESSIBILITY
+   16. LANDSCAPE MOBILE SCREENS
 ========================================== */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .verification-screen {
+        min-height: 100vh;
+        padding: 25px 15px;
+    }
+
+    .verification-container {
+        max-width: 550px;
+        padding: 25px 30px;
+    }
+
+    .verification-container h1 {
+        font-size: 30px;
+    }
+
+    .welcome-message {
+        margin-bottom: 18px;
+        font-size: 16px;
+    }
+
+    .verification-footer {
+        margin-top: 15px;
+    }
+
+    .countdown-section {
+        min-height: 400px;
+        background-size: contain;
+    }
+
+    .rsvp-section {
+        padding: 35px 15px;
+    }
+
+    .thank-you-screen {
+        align-items: flex-start;
+    }
+}
+
+
+/* ==========================================
+   17. ACCESSIBILITY
+========================================== */
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--champagne);
+    outline-offset: 3px;
+}
 
 @media (prefers-reduced-motion: reduce) {
 

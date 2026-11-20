@@ -1,6 +1,12 @@
 
 // ==========================================
-// CONFIGURATION
+// QUINZEYA | EIGHTEEN EVER AFTER
+// COMPLETE JAVASCRIPT
+// ==========================================
+
+
+// ==========================================
+// 1. CONFIGURATION
 // ==========================================
 
 const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwlojt7SRVbvkqdYmKuok4KBGC9GZEx4p8p1VwA3YB6RFznzyDj8JgZw_J1q5LWp2zFOw/exec";
@@ -11,56 +17,114 @@ let verifiedGuestName = "";
 let verifiedGuestCategory = "";
 let verifiedTableNumber = "";
 let guestAlreadyResponded = false;
+let previousRSVPResponse = "";
+
 let autocompleteTimer = null;
 
 
 // ==========================================
-// ELEMENTS
+// 2. HTML ELEMENTS
 // ==========================================
 
-const verificationScreen = document.getElementById("verification-screen");
-const invitationScreen = document.getElementById("invitation-screen");
+// Screens
+const verificationScreen =
+    document.getElementById("verification-screen");
 
-const verificationForm = document.getElementById("verification-form");
-const guestNameInput = document.getElementById("guest-name");
-const verifyButton = document.getElementById("verify-button");
-const verificationMessage = document.getElementById("verification-message");
+const invitationScreen =
+    document.getElementById("invitation-screen");
 
-const guestSuggestions = document.getElementById("guest-suggestions");
+const thankYouScreen =
+    document.getElementById("thank-you-screen");
 
-const rsvpForm = document.getElementById("rsvp-form");
-const rsvpNameInput = document.getElementById("rsvp-name");
-const rsvpSubmitButton = document.getElementById("rsvp-submit-button");
-const rsvpMessage = document.getElementById("rsvp-message");
 
-const thankYouScreen = document.getElementById("thank-you-screen");
-const confirmationName = document.getElementById("confirmation-name");
-const confirmationTable = document.getElementById("confirmation-table");
-const confirmationResponse = document.getElementById("confirmation-response");
+// Verification
+const verificationForm =
+    document.getElementById("verification-form");
 
-const backgroundMusic = document.getElementById("background-music");
+const guestNameInput =
+    document.getElementById("guest-name");
 
-// Supports both the new HTML ID and the older one.
+const verifyButton =
+    document.getElementById("verify-button");
+
+const verificationMessage =
+    document.getElementById("verification-message");
+
+const guestSuggestions =
+    document.getElementById("guest-suggestions");
+
+
+// RSVP
+const rsvpForm =
+    document.getElementById("rsvp-form");
+
+const rsvpNameInput =
+    document.getElementById("rsvp-name");
+
+const rsvpSubmitButton =
+    document.getElementById("rsvp-submit-button");
+
+const rsvpMessage =
+    document.getElementById("rsvp-message");
+
+
+// New previous confirmation elements
+const viewConfirmationButton =
+    document.getElementById("view-confirmation-button");
+
+const previousConfirmation =
+    document.getElementById("previous-confirmation");
+
+const previousConfirmationName =
+    document.getElementById("previous-confirmation-name");
+
+const previousConfirmationTable =
+    document.getElementById("previous-confirmation-table");
+
+const previousConfirmationResponse =
+    document.getElementById("previous-confirmation-response");
+
+
+// Thank You confirmation
+const confirmationName =
+    document.getElementById("confirmation-name");
+
+const confirmationTable =
+    document.getElementById("confirmation-table");
+
+const confirmationResponse =
+    document.getElementById("confirmation-response");
+
+
+// Music
+const backgroundMusic =
+    document.getElementById("background-music");
+
 const musicToggle =
     document.getElementById("music-toggle") ||
     document.getElementById("music-button");
 
 
 // ==========================================
-// BACKEND REQUEST
+// 3. BACKEND REQUEST
 // ==========================================
 
 async function backendRequest(data) {
+
     const response = await fetch(BACKEND_URL, {
         method: "POST",
+
         headers: {
             "Content-Type": "text/plain;charset=utf-8"
         },
+
         body: JSON.stringify(data)
     });
 
     if (!response.ok) {
-        throw new Error("Unable to connect to the invitation server.");
+        throw new Error(
+            "Unable to connect to the invitation server."
+        );
     }
 
     return await response.json();
@@ -68,40 +132,61 @@ async function backendRequest(data) {
 
 
 // ==========================================
-// MESSAGE HELPERS
+// 4. MESSAGE HELPERS
 // ==========================================
 
 function showVerificationMessage(message, isError = false) {
+
     if (!verificationMessage) return;
 
     verificationMessage.textContent = message;
 
-    verificationMessage.classList.toggle("error", isError);
-    verificationMessage.classList.toggle("success", !isError);
+    verificationMessage.classList.toggle(
+        "error",
+        isError
+    );
+
+    verificationMessage.classList.toggle(
+        "success",
+        !isError && Boolean(message)
+    );
 }
 
+
 function showRSVPMessage(message, isError = false) {
+
     if (!rsvpMessage) return;
 
     rsvpMessage.textContent = message;
 
-    rsvpMessage.classList.toggle("error", isError);
-    rsvpMessage.classList.toggle("success", !isError);
+    rsvpMessage.classList.toggle(
+        "error",
+        isError
+    );
+
+    rsvpMessage.classList.toggle(
+        "success",
+        !isError && Boolean(message)
+    );
 }
 
 
 // ==========================================
-// NAME AUTOCOMPLETE
+// 5. NAME AUTOCOMPLETE
 // ==========================================
 
 function closeSuggestions() {
+
     if (!guestSuggestions) return;
 
     guestSuggestions.innerHTML = "";
+
     guestSuggestions.hidden = true;
 }
 
+
 function showSuggestions(names) {
+
     if (!guestSuggestions) return;
 
     guestSuggestions.innerHTML = "";
@@ -112,28 +197,39 @@ function showSuggestions(names) {
     }
 
     names.forEach(name => {
+
         const option = document.createElement("button");
 
         option.type = "button";
+
         option.className = "suggestion-item";
+
         option.textContent = name;
+
         option.setAttribute("role", "option");
 
         option.addEventListener("click", () => {
+
             guestNameInput.value = name;
+
             closeSuggestions();
 
             showVerificationMessage("");
+
         });
 
         guestSuggestions.appendChild(option);
+
     });
 
     guestSuggestions.hidden = false;
 }
 
+
 if (guestNameInput) {
+
     guestNameInput.addEventListener("input", () => {
+
         clearTimeout(autocompleteTimer);
 
         const query = guestNameInput.value.trim();
@@ -143,75 +239,112 @@ if (guestNameInput) {
         if (query.length < 2) return;
 
         autocompleteTimer = setTimeout(async () => {
+
             try {
+
                 const result = await backendRequest({
                     action: "autocomplete",
                     query: query
                 });
 
                 if (result.success) {
+
                     showSuggestions(result.suggestions);
+
                 }
 
             } catch (error) {
-                console.error("Autocomplete error:", error);
+
+                console.error(
+                    "Autocomplete error:",
+                    error
+                );
+
             }
+
         }, 300);
+
     });
 
+
     guestNameInput.addEventListener("keydown", event => {
+
         if (event.key === "Escape") {
             closeSuggestions();
         }
+
     });
+
 }
 
+
 document.addEventListener("click", event => {
+
     if (
         guestSuggestions &&
         guestNameInput &&
         !guestSuggestions.contains(event.target) &&
         event.target !== guestNameInput
     ) {
+
         closeSuggestions();
+
     }
+
 });
 
 
 // ==========================================
-// INVITATION ACCESS
+// 6. INVITATION ACCESS
 // ==========================================
 
 function applyInvitationAccess(category) {
+
     const invitationSections = document.querySelectorAll(
         ".invitation-image-section"
     );
 
     invitationSections.forEach(section => {
-        const invitationNumber = section.dataset.invitationNumber;
 
-        const restrictedForVisitors = ["2.2", "3", "4", "5"];
+        const invitationNumber =
+            section.dataset.invitationNumber;
+
+        // Visitors cannot access these invitation pages.
+        const restrictedForVisitors = [
+            "2.2",
+            "3",
+            "4",
+            "5"
+        ];
 
         if (
             category === "VISITOR" &&
             restrictedForVisitors.includes(invitationNumber)
         ) {
+
             section.hidden = true;
+
         } else {
+
             section.hidden = false;
+
         }
+
     });
+
 }
 
 
 // ==========================================
-// MUSIC
+// 7. BACKGROUND MUSIC
 // ==========================================
 
 async function playBackgroundMusic() {
+
     if (!backgroundMusic) return;
 
     try {
+
         await backgroundMusic.play();
 
         if (musicToggle) {
@@ -219,48 +352,87 @@ async function playBackgroundMusic() {
         }
 
     } catch (error) {
-        console.log("Music playback requires user interaction.");
+
+        console.log(
+            "Music playback requires user interaction."
+        );
+
     }
+
 }
 
+
 function updateMusicButton() {
+
     if (!backgroundMusic || !musicToggle) return;
 
     const isPlaying = !backgroundMusic.paused;
 
-    musicToggle.classList.toggle("playing", isPlaying);
+    musicToggle.classList.toggle(
+        "playing",
+        isPlaying
+    );
 
     musicToggle.setAttribute(
         "aria-label",
-        isPlaying ? "Pause background music" : "Play background music"
+        isPlaying
+            ? "Pause background music"
+            : "Play background music"
     );
+
 }
 
+
 if (musicToggle && backgroundMusic) {
+
     musicToggle.addEventListener("click", async () => {
+
         if (backgroundMusic.paused) {
+
             await playBackgroundMusic();
+
         } else {
+
             backgroundMusic.pause();
+
         }
 
         updateMusicButton();
+
     });
 
-    backgroundMusic.addEventListener("play", updateMusicButton);
-    backgroundMusic.addEventListener("pause", updateMusicButton);
+
+    backgroundMusic.addEventListener(
+        "play",
+        updateMusicButton
+    );
+
+    backgroundMusic.addEventListener(
+        "pause",
+        updateMusicButton
+    );
+
 }
 
 
 // ==========================================
-// COUNTDOWN
+// 8. COUNTDOWN
 // ==========================================
 
 function updateCountdown() {
-    const daysElement = document.getElementById("days");
-    const hoursElement = document.getElementById("hours");
-    const minutesElement = document.getElementById("minutes");
-    const secondsElement = document.getElementById("seconds");
+
+    const daysElement =
+        document.getElementById("days");
+
+    const hoursElement =
+        document.getElementById("hours");
+
+    const minutesElement =
+        document.getElementById("minutes");
+
+    const secondsElement =
+        document.getElementById("seconds");
+
 
     if (
         !daysElement ||
@@ -271,87 +443,326 @@ function updateCountdown() {
         return;
     }
 
+
     const now = new Date();
-    const difference = COUNTDOWN_DATE.getTime() - now.getTime();
+
+    const difference =
+        COUNTDOWN_DATE.getTime() - now.getTime();
+
 
     if (difference <= 0) {
+
         daysElement.textContent = "00";
         hoursElement.textContent = "00";
         minutesElement.textContent = "00";
         secondsElement.textContent = "00";
+
         return;
+
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
     const hours = Math.floor(
         (difference / (1000 * 60 * 60)) % 24
     );
+
     const minutes = Math.floor(
         (difference / (1000 * 60)) % 60
     );
+
     const seconds = Math.floor(
         (difference / 1000) % 60
     );
 
-    daysElement.textContent = String(days).padStart(2, "0");
-    hoursElement.textContent = String(hours).padStart(2, "0");
-    minutesElement.textContent = String(minutes).padStart(2, "0");
-    secondsElement.textContent = String(seconds).padStart(2, "0");
+
+    daysElement.textContent =
+        String(days).padStart(2, "0");
+
+    hoursElement.textContent =
+        String(hours).padStart(2, "0");
+
+    minutesElement.textContent =
+        String(minutes).padStart(2, "0");
+
+    secondsElement.textContent =
+        String(seconds).padStart(2, "0");
+
 }
 
+
 updateCountdown();
+
 setInterval(updateCountdown, 1000);
 
 
 // ==========================================
-// SHOW INVITATION OR CONFIRMATION
+// 9. SHOW / HIDE INVITATION SECTIONS
 // ==========================================
 
 function hideInvitationSections() {
-    const gallery = document.querySelector(".invitation-gallery");
-    const countdown = document.getElementById("countdown-section");
-    const rsvpSection = document.getElementById("rsvp-section");
+
+    const gallery =
+        document.querySelector(".invitation-gallery");
+
+    const countdown =
+        document.getElementById("countdown-section");
+
+    const rsvpSection =
+        document.getElementById("rsvp-section");
+
 
     if (gallery) gallery.hidden = true;
+
     if (countdown) countdown.hidden = true;
+
     if (rsvpSection) rsvpSection.hidden = true;
+
 }
+
 
 function showInvitationSections() {
-    const gallery = document.querySelector(".invitation-gallery");
-    const countdown = document.getElementById("countdown-section");
-    const rsvpSection = document.getElementById("rsvp-section");
+
+    const gallery =
+        document.querySelector(".invitation-gallery");
+
+    const countdown =
+        document.getElementById("countdown-section");
+
+    const rsvpSection =
+        document.getElementById("rsvp-section");
+
 
     if (gallery) gallery.hidden = false;
+
     if (countdown) countdown.hidden = false;
+
     if (rsvpSection) rsvpSection.hidden = false;
 
-    if (thankYouScreen) thankYouScreen.hidden = true;
+
+    if (thankYouScreen) {
+        thankYouScreen.hidden = true;
+    }
+
 }
 
-function showThankYouScreen(name, tableNumber, response) {
+
+// ==========================================
+// 10. PREVENT DUPLICATE RSVP
+// ==========================================
+
+function lockRSVPForm() {
+
+    if (rsvpSubmitButton) {
+
+        rsvpSubmitButton.disabled = true;
+
+        rsvpSubmitButton.textContent =
+            "RSVP Already Recorded";
+
+    }
+
+
+    if (rsvpForm) {
+
+        rsvpForm.querySelectorAll("input").forEach(input => {
+
+            input.disabled = true;
+
+        });
+
+    }
+
+}
+
+
+function unlockRSVPForm() {
+
+    if (rsvpSubmitButton) {
+
+        rsvpSubmitButton.disabled = false;
+
+        rsvpSubmitButton.textContent =
+            "Submit RSVP";
+
+    }
+
+
+    if (rsvpForm) {
+
+        rsvpForm.querySelectorAll("input").forEach(input => {
+
+            input.disabled = false;
+
+        });
+
+    }
+
+}
+
+
+// ==========================================
+// 11. DISPLAY PREVIOUS CONFIRMATION
+// ==========================================
+
+function displayPreviousConfirmation() {
+
+    if (!previousConfirmation) return;
+
+
+    if (previousConfirmationName) {
+
+        previousConfirmationName.textContent =
+            verifiedGuestName || "Guest";
+
+    }
+
+
+    if (previousConfirmationTable) {
+
+        previousConfirmationTable.textContent =
+            verifiedTableNumber &&
+            String(verifiedTableNumber).trim()
+                ? verifiedTableNumber
+                : "To be announced";
+
+    }
+
+
+    if (previousConfirmationResponse) {
+
+        previousConfirmationResponse.textContent =
+            previousRSVPResponse ||
+            "Response already recorded";
+
+    }
+
+
+    previousConfirmation.hidden = false;
+
+
+    previousConfirmation.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+    });
+
+}
+
+
+// ==========================================
+// 12. VIEW MY CONFIRMATION BUTTON
+// ==========================================
+
+if (viewConfirmationButton) {
+
+    viewConfirmationButton.addEventListener("click", () => {
+
+        if (!guestAlreadyResponded) {
+
+            return;
+
+        }
+
+        displayPreviousConfirmation();
+
+    });
+
+}
+
+
+// ==========================================
+// 13. UPDATE RETURNING GUEST RSVP DISPLAY
+// ==========================================
+
+function prepareReturningGuest() {
+
+    // Display the previous confirmation button.
+    if (viewConfirmationButton) {
+
+        viewConfirmationButton.hidden =
+            !guestAlreadyResponded;
+
+    }
+
+
+    // Hide the confirmation details until the guest requests them.
+    if (previousConfirmation) {
+
+        previousConfirmation.hidden = true;
+
+    }
+
+
+    if (guestAlreadyResponded) {
+
+        // Prevent a second RSVP.
+        lockRSVPForm();
+
+        showRSVPMessage(
+            "Your RSVP has already been recorded. You may view your confirmation below.",
+            false
+        );
+
+    } else {
+
+        unlockRSVPForm();
+
+        showRSVPMessage("");
+
+    }
+
+}
+
+
+// ==========================================
+// 14. THANK YOU SCREEN
+// ==========================================
+
+function showThankYouScreen(
+    name,
+    tableNumber,
+    response
+) {
+
     if (!thankYouScreen) return;
 
-    // Fill in the guest's confirmation details.
+
     if (confirmationName) {
-        confirmationName.textContent = name || verifiedGuestName;
+
+        confirmationName.textContent =
+            name || verifiedGuestName;
+
     }
+
 
     if (confirmationTable) {
+
         confirmationTable.textContent =
-            tableNumber && String(tableNumber).trim()
+            tableNumber &&
+            String(tableNumber).trim()
                 ? tableNumber
                 : "To be announced";
+
     }
+
 
     if (confirmationResponse) {
-        confirmationResponse.textContent = response || "Response recorded";
+
+        confirmationResponse.textContent =
+            response || "Response recorded";
+
     }
 
-    // Hide the other invitation sections.
+
     hideInvitationSections();
 
-    // Keep the parent invitation screen visible.
+
     if (invitationScreen) {
         invitationScreen.hidden = false;
     }
@@ -360,213 +771,406 @@ function showThankYouScreen(name, tableNumber, response) {
         verificationScreen.hidden = true;
     }
 
+
     thankYouScreen.hidden = false;
 
-    // Scroll to the confirmation.
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
-    // Prevent another RSVP submission.
-    if (rsvpSubmitButton) {
-        rsvpSubmitButton.disabled = true;
-        rsvpSubmitButton.textContent = "RSVP Already Recorded";
-    }
 
-    if (rsvpForm) {
-        rsvpForm.querySelectorAll("input").forEach(input => {
-            input.disabled = true;
-        });
-    }
+    // Prevent duplicate submission.
+    lockRSVPForm();
+
 }
 
 
 // ==========================================
-// GUEST VERIFICATION
+// 15. GUEST VERIFICATION
 // ==========================================
 
 if (verificationForm) {
-    verificationForm.addEventListener("submit", async event => {
-        event.preventDefault();
 
-        const enteredName = guestNameInput.value.trim();
+    verificationForm.addEventListener(
+        "submit",
+        async event => {
 
-        if (!enteredName) {
-            showVerificationMessage(
-                "Please enter your full name.",
-                true
-            );
-            return;
-        }
+            event.preventDefault();
 
-        closeSuggestions();
 
-        verifyButton.disabled = true;
-        verifyButton.textContent = "Checking Invitation...";
+            const enteredName =
+                guestNameInput.value.trim();
 
-        showVerificationMessage("");
 
-        try {
-            const result = await backendRequest({
-                action: "verify",
-                name: enteredName
-            });
+            if (!enteredName) {
 
-            if (!result.success) {
                 showVerificationMessage(
-                    result.message || "Unable to verify your invitation.",
+                    "Please enter your full name.",
                     true
                 );
+
                 return;
+
             }
 
-            verifiedGuestName = result.name;
-            verifiedGuestCategory = result.category;
-            verifiedTableNumber = result.tableNumber || "";
 
-            guestAlreadyResponded = Boolean(result.alreadyResponded);
+            closeSuggestions();
 
-            if (rsvpNameInput) {
-                rsvpNameInput.value = verifiedGuestName;
-            }
 
-            // Apply invitation access based on guest category.
-            applyInvitationAccess(verifiedGuestCategory);
+            verifyButton.disabled = true;
 
-            // Show the invitation screen.
-            if (verificationScreen) {
-                verificationScreen.hidden = true;
-            }
+            verifyButton.textContent =
+                "Checking Invitation...";
 
-            if (invitationScreen) {
-                invitationScreen.hidden = false;
-            }
 
-            showInvitationSections();
+            showVerificationMessage("");
 
-            // If the guest already submitted an RSVP,
-            // display the confirmation instead of the RSVP form.
-            if (guestAlreadyResponded) {
-                showThankYouScreen(
-                    verifiedGuestName,
-                    verifiedTableNumber,
-                    result.existingRSVP || "Response already recorded"
+
+            try {
+
+                const result = await backendRequest({
+
+                    action: "verify",
+
+                    name: enteredName
+
+                });
+
+
+                if (!result.success) {
+
+                    showVerificationMessage(
+                        result.message ||
+                        "Unable to verify your invitation.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                // Save verified guest details.
+                verifiedGuestName = result.name;
+
+                verifiedGuestCategory = result.category;
+
+                verifiedTableNumber =
+                    result.tableNumber || "";
+
+
+                guestAlreadyResponded =
+                    Boolean(result.alreadyResponded);
+
+
+                // Retrieve the previously saved RSVP.
+                previousRSVPResponse =
+                    result.existingRSVP || "";
+
+
+                if (rsvpNameInput) {
+
+                    rsvpNameInput.value =
+                        verifiedGuestName;
+
+                }
+
+
+                // Apply invitation access.
+                applyInvitationAccess(
+                    verifiedGuestCategory
                 );
 
-                return;
+
+                // Show invitation screen.
+                if (verificationScreen) {
+
+                    verificationScreen.hidden = true;
+
+                }
+
+                if (invitationScreen) {
+
+                    invitationScreen.hidden = false;
+
+                }
+
+
+                // Always show invitation pages first.
+                showInvitationSections();
+
+
+                // Handle returning guests.
+                if (guestAlreadyResponded) {
+
+                    prepareReturningGuest();
+
+                } else {
+
+                    // Prepare a new RSVP.
+                    previousRSVPResponse = "";
+
+                    if (viewConfirmationButton) {
+
+                        viewConfirmationButton.hidden = true;
+
+                    }
+
+                    if (previousConfirmation) {
+
+                        previousConfirmation.hidden = true;
+
+                    }
+
+                    unlockRSVPForm();
+
+                    showRSVPMessage("");
+
+                }
+
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+
+                await playBackgroundMusic();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Verification error:",
+                    error
+                );
+
+                showVerificationMessage(
+                    "Unable to connect. Please check your connection and try again.",
+                    true
+                );
+
+            } finally {
+
+                verifyButton.disabled = false;
+
+                verifyButton.textContent =
+                    "View My Invitation";
+
             }
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-            await playBackgroundMusic();
-
-        } catch (error) {
-            console.error("Verification error:", error);
-
-            showVerificationMessage(
-                "Unable to connect. Please check your connection and try again.",
-                true
-            );
-
-        } finally {
-            verifyButton.disabled = false;
-            verifyButton.textContent = "View My Invitation";
         }
-    });
+    );
+
 }
 
 
 // ==========================================
-// RSVP SUBMISSION
+// 16. RSVP SUBMISSION
 // ==========================================
 
 if (rsvpForm) {
-    rsvpForm.addEventListener("submit", async event => {
-        event.preventDefault();
 
-        if (!verifiedGuestName) {
-            showRSVPMessage(
-                "Please verify your invitation first.",
-                true
-            );
-            return;
-        }
+    rsvpForm.addEventListener(
+        "submit",
+        async event => {
 
-        if (guestAlreadyResponded) {
-            showRSVPMessage(
-                "Your RSVP has already been recorded.",
-                true
-            );
-            return;
-        }
+            event.preventDefault();
 
-        const selectedAttendance = rsvpForm.querySelector(
-            'input[name="attendance"]:checked'
-        );
 
-        if (!selectedAttendance) {
-            showRSVPMessage(
-                "Please select your RSVP response.",
-                true
-            );
-            return;
-        }
+            // Require verified guest.
+            if (!verifiedGuestName) {
 
-        const attendance = selectedAttendance.value;
-
-        rsvpSubmitButton.disabled = true;
-        rsvpSubmitButton.textContent = "Submitting...";
-
-        showRSVPMessage("");
-
-        try {
-            const result = await backendRequest({
-                action: "rsvp",
-                name: verifiedGuestName,
-                attendance: attendance
-            });
-
-            if (!result.success) {
                 showRSVPMessage(
-                    result.message || "Unable to submit your RSVP.",
+                    "Please verify your invitation first.",
                     true
                 );
 
                 return;
+
             }
 
-            // Record the local state.
-            guestAlreadyResponded = true;
 
-            verifiedGuestName = result.name || verifiedGuestName;
-            verifiedTableNumber = result.tableNumber || verifiedTableNumber;
+            // Do not allow duplicate RSVP.
+            if (guestAlreadyResponded) {
 
-            const finalResponse = result.response ||
-                (attendance === "yes"
-                    ? "Yes, I will gladly attend!"
-                    : "Regretfully, I won't be able to make it.");
+                showRSVPMessage(
+                    "Your RSVP has already been recorded. You cannot submit another response.",
+                    true
+                );
 
-            // Show the confirmation screen.
-            showThankYouScreen(
-                verifiedGuestName,
-                verifiedTableNumber,
-                finalResponse
-            );
+                return;
 
-        } catch (error) {
-            console.error("RSVP submission error:", error);
+            }
 
-            showRSVPMessage(
-                "Something went wrong. Please try again.",
-                true
-            );
 
-            rsvpSubmitButton.disabled = false;
-            rsvpSubmitButton.textContent = "Submit RSVP";
+            const selectedAttendance =
+                rsvpForm.querySelector(
+                    'input[name="attendance"]:checked'
+                );
+
+
+            if (!selectedAttendance) {
+
+                showRSVPMessage(
+                    "Please select your RSVP response.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const attendance =
+                selectedAttendance.value;
+
+
+            rsvpSubmitButton.disabled = true;
+
+            rsvpSubmitButton.textContent =
+                "Submitting...";
+
+
+            showRSVPMessage("");
+
+
+            try {
+
+                const result = await backendRequest({
+
+                    action: "rsvp",
+
+                    name: verifiedGuestName,
+
+                    attendance: attendance
+
+                });
+
+
+                if (!result.success) {
+
+                    showRSVPMessage(
+                        result.message ||
+                        "Unable to submit your RSVP.",
+                        true
+                    );
+
+                    // Re-enable only if the backend rejected
+                    // the submission without confirming an RSVP.
+                    if (
+                        result.alreadyResponded ||
+                        guestAlreadyResponded
+                    ) {
+
+                        guestAlreadyResponded = true;
+
+                        lockRSVPForm();
+
+                    } else {
+
+                        rsvpSubmitButton.disabled = false;
+
+                        rsvpSubmitButton.textContent =
+                            "Submit RSVP";
+
+                    }
+
+                    return;
+
+                }
+
+
+                // Save local RSVP state.
+                guestAlreadyResponded = true;
+
+
+                verifiedGuestName =
+                    result.name || verifiedGuestName;
+
+
+                verifiedTableNumber =
+                    result.tableNumber || verifiedTableNumber;
+
+
+                const finalResponse =
+                    result.response ||
+                    (
+                        attendance === "yes"
+                            ? "Yes, I will gladly attend!"
+                            : "Regretfully, I won't be able to make it."
+                    );
+
+
+                previousRSVPResponse = finalResponse;
+
+
+                // Display the Thank You screen after
+                // the guest's first successful RSVP.
+                showThankYouScreen(
+
+                    verifiedGuestName,
+
+                    verifiedTableNumber,
+
+                    finalResponse
+
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "RSVP submission error:",
+                    error
+                );
+
+
+                showRSVPMessage(
+                    "Something went wrong. Please check your connection and try again.",
+                    true
+                );
+
+
+                rsvpSubmitButton.disabled = false;
+
+                rsvpSubmitButton.textContent =
+                    "Submit RSVP";
+
+            }
+
         }
-    });
+    );
+
+}
+
+
+// ==========================================
+// 17. INITIAL PAGE STATE
+// ==========================================
+
+if (thankYouScreen) {
+
+    thankYouScreen.hidden = true;
+
+}
+
+if (previousConfirmation) {
+
+    previousConfirmation.hidden = true;
+
+}
+
+if (viewConfirmationButton) {
+
+    viewConfirmationButton.hidden = true;
+
 }

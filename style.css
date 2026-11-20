@@ -405,10 +405,18 @@ button {
     }
 
 }
-/* BG-2: Portrait screen adjustment */
+/* BG-2 RESPONSIVE ADJUSTMENT */
+
+/* Keep the original landscape appearance */
+.countdown-section {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/* Portrait screens */
 @media (orientation: portrait) {
     .countdown-section {
-        background-size: auto 100%;
+        background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
     }

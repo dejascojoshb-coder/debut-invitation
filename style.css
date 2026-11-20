@@ -405,3 +405,11 @@ button {
     }
 
 }
+/* BG-2: Portrait screen adjustment */
+@media (orientation: portrait) {
+    .countdown-section {
+        background-size: auto 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}

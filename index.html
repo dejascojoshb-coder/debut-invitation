@@ -1,31 +1,27 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="You are invited to Quinzeya U-Hee's Eighteen Ever After celebration on December 18, 2026.">
-
+    <meta name="description" content="Quinzeya U-Hee - Eighteen Ever After">
     <title>Quinzeya | Eighteen Ever After</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =================================
-         GUEST VERIFICATION SCREEN
-    ================================== -->
+    <!-- BACKGROUND MUSIC -->
+    <audio id="background-music" loop autoplay>
+        <source src="assets/music/background.mp3" type="audio/mpeg">
+    </audio>
 
+    <!-- GUEST VERIFICATION SCREEN -->
     <main id="verification-screen" class="verification-screen">
 
         <div class="verification-container">
 
-            <p class="small-heading">
-                A PRIVATE CELEBRATION
-            </p>
+            <p class="small-heading">A PRIVATE CELEBRATION</p>
 
             <h1>Are You on the Guest List?</h1>
 
@@ -37,9 +33,7 @@
 
             <form id="verification-form">
 
-                <label for="guest-name">
-                    FULL NAME
-                </label>
+                <label for="guest-name">FULL NAME</label>
 
                 <input
                     type="text"
@@ -70,44 +64,51 @@
     </main>
 
 
-    <!-- =================================
-         INVITATION SCREEN
-    ================================== -->
-
+    <!-- INVITATION WEBSITE -->
     <main id="invitation-screen" hidden>
 
-        <!-- ORIGINAL CANVA DESIGN WILL GO HERE -->
+        <!-- MUSIC CONTROL -->
+        <button id="music-button" type="button">
+            PLAY MUSIC
+        </button>
 
-        <section id="original-invitation">
 
-            <h1>Quinzeya U-Hee</h1>
+        <!-- INVITATION IMAGE 01 -->
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-01.png"
+                alt="Quinzeya's debut invitation - Part 1"
+            >
+        </section>
 
-            <p>EIGHTEEN EVER AFTER</p>
 
-            <p>DECEMBER 18, 2026</p>
+        <!-- COUNTDOWN BACKGROUND: BG-2 -->
+        <section class="countdown-section">
 
-            <!-- LIVE COUNTDOWN -->
+            <div class="countdown-container">
 
-            <div id="countdown">
+                <div id="countdown">
 
-                <div>
-                    <span id="days">00</span>
-                    <small>DAYS</small>
-                </div>
+                    <div class="countdown-item">
+                        <span id="days">00</span>
+                        <small>DAYS</small>
+                    </div>
 
-                <div>
-                    <span id="hours">00</span>
-                    <small>HOURS</small>
-                </div>
+                    <div class="countdown-item">
+                        <span id="hours">00</span>
+                        <small>HOURS</small>
+                    </div>
 
-                <div>
-                    <span id="minutes">00</span>
-                    <small>MINUTES</small>
-                </div>
+                    <div class="countdown-item">
+                        <span id="minutes">00</span>
+                        <small>MINUTES</small>
+                    </div>
 
-                <div>
-                    <span id="seconds">00</span>
-                    <small>SECONDS</small>
+                    <div class="countdown-item">
+                        <span id="seconds">00</span>
+                        <small>SECONDS</small>
+                    </div>
+
                 </div>
 
             </div>
@@ -115,93 +116,105 @@
         </section>
 
 
-        <!-- =================================
-             BACKGROUND MUSIC
-        ================================== -->
+        <!-- REMAINING CANVA INVITATION IMAGES -->
 
-        <audio id="background-music" loop>
-            <source
-                src="assets/music/background.mp3"
-                type="audio/mpeg">
-            Your browser does not support audio playback.
-        </audio>
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-02.png"
+                alt="Invitation Part 2"
+            >
+        </section>
 
-        <button id="music-button" type="button">
-            PLAY MUSIC
-        </button>
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-03.png"
+                alt="Invitation Part 3"
+            >
+        </section>
+
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-04.png"
+                alt="Invitation Part 4"
+            >
+        </section>
+
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-05.png"
+                alt="Invitation Part 5"
+            >
+        </section>
+
+        <section class="invitation-image-section">
+            <img
+                src="assets/images/invitation-06.png"
+                alt="Invitation Part 6"
+            >
+        </section>
 
 
-        <!-- =================================
-             RSVP SECTION
-        ================================== -->
+        <!-- RSVP SECTION: BG-1 -->
+        <section class="rsvp-background">
 
-        <section id="rsvp-section">
+            <div class="rsvp-container">
 
-            <h2>RSVP</h2>
+                <h2>RSVP</h2>
 
-            <p>
-                Will you be able to attend?
-            </p>
+                <p>Will you be able to attend?</p>
 
-            <form id="rsvp-form">
+                <form id="rsvp-form">
 
-                <label for="rsvp-name">
-                    FULL NAME
-                </label>
+                    <label for="rsvp-name">FULL NAME</label>
 
-                <input
-                    type="text"
-                    id="rsvp-name"
-                    placeholder="Verified guest name"
-                    readonly
-                    required
-                >
+                    <input
+                        type="text"
+                        id="rsvp-name"
+                        placeholder="Verified guest name"
+                        readonly
+                        required
+                    >
 
-                <label for="attendance">
-                    ATTENDANCE CONFIRMATION
-                </label>
+                    <label for="attendance">
+                        ATTENDANCE CONFIRMATION
+                    </label>
 
-                <select id="attendance" required>
+                    <select id="attendance" required>
 
-                    <option value="">
-                        Select your response
-                    </option>
+                        <option value="">
+                            Select your response
+                        </option>
 
-                    <option value="yes">
-                        Yes, I will gladly attend!
-                    </option>
+                        <option value="yes">
+                            Yes, I will gladly attend!
+                        </option>
 
-                    <option value="no">
-                        Regretfully, I won't be able to make it.
-                    </option>
+                        <option value="no">
+                            Regretfully, I won't be able to make it.
+                        </option>
 
-                </select>
+                    </select>
 
-                <button
-                    type="submit"
-                    id="rsvp-submit-button">
-                    SUBMIT RSVP
-                </button>
+                    <button type="submit" id="rsvp-submit-button">
+                        SUBMIT RSVP
+                    </button>
 
-            </form>
+                </form>
 
-            <p
-                id="rsvp-message"
-                role="status"
-                aria-live="polite">
-            </p>
+                <p
+                    id="rsvp-message"
+                    role="status"
+                    aria-live="polite">
+                </p>
+
+            </div>
 
         </section>
 
     </main>
 
 
-    <!-- =================================
-         JAVASCRIPT
-    ================================== -->
-
     <script src="script.js"></script>
 
 </body>
-
 </html>

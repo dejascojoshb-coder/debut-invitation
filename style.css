@@ -1,35 +1,14 @@
 
-/* =====================================
-   QUINZEYA'S DEBUT INVITATION WEBSITE
-   EIGHTEEN EVER AFTER
-   LAVENDER & GRAY THEME
-===================================== */
-
 * {
     box-sizing: border-box;
-}
-
-:root {
-    --lavender: #80649a;
-    --dark-lavender: #634879;
-    --light-lavender: #e8dff2;
-    --pale-lavender: #f5f0f8;
-    --gray: #77717f;
-    --dark-gray: #493c59;
-    --white: #ffffff;
-    --border: #d7c8e2;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Georgia, serif;
-    background: var(--pale-lavender);
-    color: var(--dark-gray);
+    background: #eee8f5;
+    color: #493c59;
 }
 
 button,
@@ -40,420 +19,285 @@ select {
 
 button {
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
+/* =================================
+   GUEST VERIFICATION SCREEN
+================================= */
 
-
-/* =====================================
-   1. GUEST VERIFICATION SCREEN
-===================================== */
-
-#verification-screen {
+.verification-screen {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px;
-
-    background:
-        radial-gradient(
-            circle at top left,
-            #ffffff 0%,
-            transparent 45%
-        ),
-        linear-gradient(
-            135deg,
-            #eee8f5,
-            #d9c9e7,
-            #bca8d0
-        );
+    padding: 25px;
+    background: #eee8f5;
 }
 
 .verification-container {
     width: 100%;
-    max-width: 480px;
-    padding: 45px 35px;
+    max-width: 450px;
+    padding: 40px 28px;
     text-align: center;
-
-    background: rgba(255, 255, 255, 0.94);
-
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-
-    box-shadow:
-        0 15px 45px rgba(73, 60, 89, 0.15);
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
 }
 
 .small-heading {
-    margin-bottom: 18px;
-
-    color: var(--lavender);
-
     font-size: 11px;
-    letter-spacing: 4px;
-    font-weight: bold;
+    letter-spacing: 3px;
 }
 
 .verification-container h1 {
-    margin: 0 0 18px;
-
-    color: var(--dark-lavender);
-
-    font-size: clamp(27px, 5vw, 38px);
-    font-weight: normal;
-    line-height: 1.3;
+    font-size: clamp(27px, 6vw, 38px);
+    margin: 22px 0;
 }
 
 .welcome-text {
-    max-width: 350px;
-    margin: 0 auto 30px;
-
-    color: var(--gray);
-
+    line-height: 1.7;
     font-size: 15px;
-    line-height: 1.8;
+    margin-bottom: 30px;
 }
 
-#verification-screen form {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-#verification-screen label,
-#rsvp-form label {
-    display: block;
-    margin-top: 18px;
-    margin-bottom: 9px;
-
-    color: var(--dark-lavender);
-
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
+#verification-form {
+    display: flex;
+    flex-direction: column;
     text-align: left;
+    gap: 12px;
 }
 
-#verification-screen input {
-    width: 100%;
-    padding: 15px;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    background: #fcfaff;
-    color: var(--dark-gray);
-
-    outline: none;
-}
-
-#verification-screen input:focus,
-#rsvp-form input:focus,
-#rsvp-form select:focus {
-    border-color: var(--lavender);
-
-    box-shadow:
-        0 0 0 3px rgba(128, 100, 154, 0.12);
-}
-
-#verification-screen button,
-#rsvp-form button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: var(--lavender);
-    color: var(--white);
-
-    font-size: 12px;
-    font-weight: bold;
+#verification-form label {
+    font-size: 11px;
     letter-spacing: 2px;
 }
 
-#verification-screen button:hover,
-#rsvp-form button:hover,
-#music-button:hover {
-    background: var(--dark-lavender);
-    transform: translateY(-2px);
+#verification-form input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #b9a9c9;
+    border-radius: 5px;
+    background: white;
+}
+
+#verification-form button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 5px;
+    background: #493c59;
+    color: white;
+    letter-spacing: 1px;
+}
+
+#verification-form button:disabled,
+#rsvp-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 #verification-message {
     min-height: 20px;
-    margin-top: 18px;
-
-    color: #a34e65;
     font-size: 13px;
-    line-height: 1.5;
+    margin-top: 15px;
 }
 
 .footer-text {
     margin-top: 35px;
-
-    color: #9687a3;
-
     font-size: 10px;
     letter-spacing: 2px;
-    line-height: 1.8;
 }
 
 
-/* =====================================
-   2. INVITATION SCREEN
-===================================== */
+/* =================================
+   INVITATION WEBSITE
+================================= */
 
 #invitation-screen {
     width: 100%;
-    min-height: 100vh;
-    padding: 25px;
-
-    background: var(--pale-lavender);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-#invitation-screen[hidden] {
-    display: none !important;
-}
-
-#original-invitation {
+.invitation-image-section {
     width: 100%;
-    max-width: 900px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
 
-    margin: 30px auto;
-    padding: 45px 25px;
+.invitation-image-section img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+}
 
+
+/* =================================
+   COUNTDOWN BACKGROUND - BG-2
+================================= */
+
+.countdown-section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+
+    background-image: url("assets/images/bg-2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 55vh;
+    padding-bottom: 40px;
+}
+
+.countdown-container {
+    width: 90%;
+    max-width: 650px;
+    margin: 0 auto;
     text-align: center;
-
-    background: var(--white);
-
-    border: 1px solid var(--border);
-    border-radius: 16px;
-
-    box-shadow:
-        0 10px 35px rgba(73, 60, 89, 0.08);
 }
-
-#original-invitation h1 {
-    color: var(--dark-lavender);
-
-    font-size: clamp(32px, 6vw, 52px);
-    font-weight: normal;
-}
-
-#original-invitation p {
-    color: var(--gray);
-    letter-spacing: 3px;
-    line-height: 1.8;
-}
-
-
-/* =====================================
-   3. COUNTDOWN TIMER
-===================================== */
 
 #countdown {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-
-    gap: 14px;
-    margin: 35px 0;
+    gap: clamp(10px, 3vw, 28px);
+    width: 100%;
 }
 
-#countdown div {
-    min-width: 85px;
-    padding: 18px 12px;
-
-    background: var(--pale-lavender);
-
-    border: 1px solid var(--border);
-    border-radius: 10px;
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
 }
 
-#countdown span {
-    display: block;
-
-    color: var(--dark-lavender);
-
-    font-size: 30px;
+.countdown-item span {
+    font-size: clamp(25px, 7vw, 55px);
     font-weight: bold;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
 }
 
-#countdown small {
-    display: block;
-    margin-top: 7px;
-
-    color: var(--gray);
-
-    font-size: 10px;
+.countdown-item small {
+    font-size: clamp(9px, 2vw, 13px);
     letter-spacing: 2px;
+    margin-top: 8px;
 }
 
 
-/* =====================================
-   4. BACKGROUND MUSIC BUTTON
-===================================== */
+/* =================================
+   RSVP BACKGROUND - BG-1
+================================= */
 
-#music-button {
-    display: block;
+.rsvp-background {
+    width: 100%;
+    min-height: 100vh;
 
-    margin: 25px auto;
-    padding: 13px 25px;
+    background-image: url("assets/images/bg-1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 
-    border: 1px solid var(--lavender);
-    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background: var(--lavender);
-    color: var(--white);
-
-    font-size: 11px;
-    letter-spacing: 2px;
+    padding: 60px 20px;
 }
 
-
-/* =====================================
-   5. RSVP SECTION
-===================================== */
-
-#rsvp-section {
-    max-width: 650px;
-
-    margin: 50px auto;
-    padding: 35px 25px;
-
+.rsvp-container {
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    padding: 30px 24px;
     text-align: center;
-
-    background: var(--white);
-
-    border: 1px solid var(--border);
-    border-radius: 16px;
-
-    box-shadow:
-        0 10px 35px rgba(73, 60, 89, 0.08);
 }
 
-#rsvp-section h2 {
+.rsvp-container h2 {
     margin-top: 0;
-
-    color: var(--dark-lavender);
-
-    font-size: 30px;
-    font-weight: normal;
-    letter-spacing: 4px;
-}
-
-#rsvp-section > p {
-    color: var(--gray);
-    line-height: 1.7;
 }
 
 #rsvp-form {
-    max-width: 420px;
-
-    margin: 30px auto 0;
-    padding: 25px;
-
-    background: var(--pale-lavender);
-
-    border: 1px solid var(--border);
-    border-radius: 12px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     text-align: left;
 }
 
 #rsvp-form input,
 #rsvp-form select {
     width: 100%;
-    padding: 14px;
-
-    margin-top: 5px;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    background: var(--white);
-    color: var(--dark-gray);
-
-    outline: none;
-}
-
-#rsvp-form input[readonly] {
-    background: #eee9f2;
-    color: var(--gray);
+    padding: 13px;
+    border: 1px solid #b9a9c9;
+    border-radius: 5px;
+    background: white;
 }
 
 #rsvp-form button {
-    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    background: #493c59;
+    color: white;
 }
 
 #rsvp-message {
-    min-height: 20px;
-    margin-top: 18px;
-
-    color: var(--dark-lavender);
-
-    font-size: 13px;
-    line-height: 1.6;
+    text-align: center;
+    margin-top: 15px;
 }
 
 
-/* =====================================
-   6. RESPONSIVE DESIGN
-===================================== */
+/* =================================
+   MUSIC BUTTON
+================================= */
+
+#music-button {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1000;
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: none;
+    background: #493c59;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+
+/* =================================
+   MOBILE ADJUSTMENTS
+================================= */
 
 @media (max-width: 600px) {
 
-    #verification-screen {
-        padding: 18px;
-    }
-
     .verification-container {
-        padding: 35px 23px;
+        padding: 32px 20px;
     }
 
-    .verification-container h1 {
-        font-size: 29px;
+    .countdown-section {
+        min-height: 100vh;
+        padding-top: 55vh;
     }
 
-    #invitation-screen {
-        padding: 14px;
+    .rsvp-background {
+        padding: 40px 15px;
     }
 
-    #original-invitation {
-        padding: 30px 15px;
-        margin: 15px auto;
-    }
-
-    #countdown {
-        gap: 8px;
-    }
-
-    #countdown div {
-        min-width: 68px;
-        padding: 13px 8px;
-    }
-
-    #countdown span {
-        font-size: 24px;
-    }
-
-    #rsvp-section {
-        padding: 25px 16px;
-    }
-
-    #rsvp-form {
-        padding: 20px 15px;
+    .rsvp-container {
+        padding: 24px 16px;
     }
 
 }

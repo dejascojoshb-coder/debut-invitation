@@ -10,31 +10,35 @@ const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwlojt7SRVbvkqdYmKu
    ELEMENTS
 ================================= */
 
-const verificationForm =
-    document.getElementById("verification-form");
+const verificationForm = document.getElementById("verification-form");
+const verificationScreen = document.getElementById("verification-screen");
+const invitationScreen = document.getElementById("invitation-screen");
+const verificationMessage = document.getElementById("verification-message");
+const guestNameInput = document.getElementById("guest-name");
+const guestSuggestions = document.getElementById("guest-suggestions");
 
-const verificationScreen =
-    document.getElementById("verification-screen");
+const music = document.getElementById("background-music");
+const musicButton = document.getElementById("music-button");
 
-const invitationScreen =
-    document.getElementById("invitation-screen");
-
-const verificationMessage =
-    document.getElementById("verification-message");
-
-const music =
-    document.getElementById("background-music");
-
-const musicButton =
-    document.getElementById("music-button");
-
-const rsvpForm =
-    document.getElementById("rsvp-form");
-
-const rsvpMessage =
-    document.getElementById("rsvp-message");
+const rsvpForm = document.getElementById("rsvp-form");
+const rsvpMessage = document.getElementById("rsvp-message");
 
 let verifiedGuestName = "";
+let verifiedGuestCategory = "";
+let autocompleteTimer = null;
+
+
+/* =================================
+   MESSAGE STYLING
+================================= */
+
+function showVerificationMessage(message, isError = false) {
+    if (!verificationMessage) return;
+
+    verificationMessage.textContent = message;
+    verificationMessage.classList.toggle("message-error", isError);
+    verificationMessage.classList.toggle("message-success", !isError);
+}
 
 
 /* =================================
@@ -42,11 +46,9 @@ let verifiedGuestName = "";
 ================================= */
 
 async function playMusic() {
-
     if (!music) return;
 
     try {
-
         await music.play();
 
         if (musicButton) {
@@ -54,39 +56,109 @@ async function playMusic() {
         }
 
     } catch (error) {
-
-        console.log(
-            "Autoplay was blocked. Visitor can start music manually."
-        );
+        console.log("Autoplay was blocked.");
 
         if (musicButton) {
             musicButton.textContent = "PLAY MUSIC";
         }
-
     }
 }
 
-// Attempt autoplay when the website opens.
 playMusic();
 
-// Manual music control after the invitation opens.
 if (musicButton) {
-
     musicButton.addEventListener("click", async function () {
-
         if (music.paused) {
-
             await playMusic();
-
         } else {
-
             music.pause();
             musicButton.textContent = "PLAY MUSIC";
+        }
+    });
+}
 
+
+/* =================================
+   NAME AUTOCOMPLETE
+================================= */
+
+if (guestNameInput && guestSuggestions) {
+
+    guestNameInput.addEventListener("input", function () {
+        const query = guestNameInput.value.trim();
+
+        clearTimeout(autocompleteTimer);
+
+        if (query.length < 2) {
+            guestSuggestions.innerHTML = "";
+            return;
         }
 
-    });
+        autocompleteTimer = setTimeout(async function () {
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: "autocomplete",
+                        query: query
+                    })
+                });
 
+                const result = await response.json();
+
+                guestSuggestions.innerHTML = "";
+
+                if (result.success && Array.isArray(result.suggestions)) {
+                    result.suggestions.forEach(function (name) {
+                        const option = document.createElement("option");
+                        option.value = name;
+                        guestSuggestions.appendChild(option);
+                    });
+                }
+
+            } catch (error) {
+                console.error("Autocomplete error:", error);
+            }
+        }, 300);
+    });
+}
+
+
+/* =================================
+   INVITATION ACCESS
+================================= */
+
+function applyInvitationAccess(category) {
+
+    const normalizedCategory = String(category || "").toUpperCase();
+
+    const invitationImages = document.querySelectorAll(
+        '#invitation-screen img[src*="invitation-"]'
+    );
+
+    invitationImages.forEach(function (img) {
+
+        const match = img.getAttribute("src").match(
+            /invitation-(\d+)\.(png|jpg|jpeg|webp)/i
+        );
+
+        if (!match) return;
+
+        const pageNumber = Number(match[1]);
+
+        const imageSection =
+            img.closest(".invitation-image-section") || img.parentElement;
+
+        if (!imageSection) return;
+
+        const isRestrictedPage = [3, 4, 5].includes(pageNumber);
+
+        if (normalizedCategory === "VISITOR" && isRestrictedPage) {
+            imageSection.hidden = true;
+        } else {
+            imageSection.hidden = false;
+        }
+    });
 }
 
 
@@ -96,107 +168,89 @@ if (musicButton) {
 
 if (verificationForm) {
 
-    verificationForm.addEventListener(
-        "submit",
-        async function (event) {
+    verificationForm.addEventListener("submit", async function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            const guestName = document
-                .getElementById("guest-name")
-                .value.trim();
+        const guestName = guestNameInput.value.trim();
 
-            const verifyButton =
-                document.getElementById("verify-button");
+        const verifyButton = document.getElementById("verify-button");
 
-            if (!guestName) {
+        if (!guestName) {
+            showVerificationMessage("Please enter your full name.", true);
+            return;
+        }
 
-                verificationMessage.textContent =
-                    "Please enter your full name.";
+        showVerificationMessage("Checking your invitation...", false);
 
-                return;
+        if (verifyButton) {
+            verifyButton.disabled = true;
+        }
 
+        try {
+            const response = await fetch(BACKEND_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "verify",
+                    name: guestName
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Server request failed.");
             }
 
-            verificationMessage.textContent =
-                "Checking your invitation...";
+            const result = await response.json();
 
-            if (verifyButton) {
-                verifyButton.disabled = true;
-            }
+            if (result.success) {
 
-            try {
+                verifiedGuestName = result.name;
+                verifiedGuestCategory = result.category;
 
-                const response = await fetch(BACKEND_URL, {
+                document.getElementById("rsvp-name").value =
+                    verifiedGuestName;
 
-                    method: "POST",
+                // Apply VISITOR or GUEST access.
+                applyInvitationAccess(verifiedGuestCategory);
 
-                    body: JSON.stringify({
+                showVerificationMessage("", false);
 
-                        action: "verify",
-                        name: guestName
+                verificationScreen.hidden = true;
+                invitationScreen.hidden = false;
 
-                    })
+                playMusic();
+                updateCountdown();
 
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
                 });
 
-                if (!response.ok) {
-                    throw new Error("Server request failed.");
-                }
+            } else {
+                showVerificationMessage(
+                    result.message ||
+                    "Sorry, we couldn't find your name on the guest list. Please contact the celebrant for assistance.",
+                    true
+                );
+            }
 
-                const result = await response.json();
+        } catch (error) {
 
-                if (result.success) {
+            console.error("Verification error:", error);
 
-                    verifiedGuestName = result.name;
+            showVerificationMessage(
+                "Unable to verify your invitation. Please try again.",
+                true
+            );
 
-                    document.getElementById("rsvp-name").value =
-                        verifiedGuestName;
+        } finally {
 
-                    // Hide verification screen.
-                    verificationScreen.hidden = true;
-
-                    // Show invitation website.
-                    invitationScreen.hidden = false;
-
-                    // Attempt music playback again.
-                    playMusic();
-
-                    // Update countdown.
-                    updateCountdown();
-
-                    // Start invitation from the top.
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                } else {
-
-                    verificationMessage.textContent =
-                        result.message ||
-                        "Sorry, this invitation is reserved for invited guests only.";
-
-                }
-
-            } catch (error) {
-
-                console.error("Verification error:", error);
-
-                verificationMessage.textContent =
-                    "Unable to verify your invitation. Please try again.";
-
-            } finally {
-
-                if (verifyButton) {
-                    verifyButton.disabled = false;
-                }
-
+            if (verifyButton) {
+                verifyButton.disabled = false;
             }
 
         }
-    );
-
+    });
 }
 
 
@@ -208,11 +262,9 @@ const eventDate = new Date(
     "2026-12-18T16:00:00+08:00"
 ).getTime();
 
-
 function updateCountdown() {
 
     const now = Date.now();
-
     const difference = eventDate - now;
 
     const days = document.getElementById("days");
@@ -220,19 +272,14 @@ function updateCountdown() {
     const minutes = document.getElementById("minutes");
     const seconds = document.getElementById("seconds");
 
-    if (!days || !hours || !minutes || !seconds) {
-        return;
-    }
+    if (!days || !hours || !minutes || !seconds) return;
 
     if (difference <= 0) {
-
         days.textContent = "0";
         hours.textContent = "0";
         minutes.textContent = "0";
         seconds.textContent = "0";
-
         return;
-
     }
 
     days.textContent = Math.floor(
@@ -250,13 +297,9 @@ function updateCountdown() {
     seconds.textContent = Math.floor(
         (difference / 1000) % 60
     );
-
 }
 
-
-// Run countdown immediately and update every second.
 updateCountdown();
-
 setInterval(updateCountdown, 1000);
 
 
@@ -266,96 +309,73 @@ setInterval(updateCountdown, 1000);
 
 if (rsvpForm) {
 
-    rsvpForm.addEventListener(
-        "submit",
-        async function (event) {
+    rsvpForm.addEventListener("submit", async function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            if (!verifiedGuestName) {
-
-                rsvpMessage.textContent =
-                    "Please verify your invitation first.";
-
-                return;
-
-            }
-
-            const attendance =
-                document.getElementById("attendance").value;
-
-            if (!attendance) {
-
-                rsvpMessage.textContent =
-                    "Please select your attendance response.";
-
-                return;
-
-            }
-
+        if (!verifiedGuestName) {
             rsvpMessage.textContent =
-                "Submitting your RSVP...";
+                "Please verify your invitation first.";
+            return;
+        }
 
-            const submitButton =
-                document.getElementById("rsvp-submit-button");
+        const attendance =
+            document.getElementById("attendance").value;
 
-            if (submitButton) {
-                submitButton.disabled = true;
+        if (!attendance) {
+            rsvpMessage.textContent =
+                "Please select your attendance response.";
+            return;
+        }
+
+        rsvpMessage.textContent = "Submitting your RSVP...";
+
+        const submitButton =
+            document.getElementById("rsvp-submit-button");
+
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+
+        try {
+
+            const response = await fetch(BACKEND_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "rsvp",
+                    name: verifiedGuestName,
+                    attendance: attendance
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("RSVP request failed.");
             }
 
-            try {
+            const result = await response.json();
 
-                const response = await fetch(BACKEND_URL, {
-
-                    method: "POST",
-
-                    body: JSON.stringify({
-
-                        action: "rsvp",
-                        name: verifiedGuestName,
-                        attendance: attendance
-
-                    })
-
-                });
-
-                if (!response.ok) {
-                    throw new Error("RSVP request failed.");
-                }
-
-                const result = await response.json();
-
-                if (result.success) {
-
-                    rsvpMessage.textContent =
-                        "Thank you! Your RSVP has been recorded.";
-
-                } else {
-
-                    rsvpMessage.textContent =
-                        result.message ||
-                        "Unable to submit your RSVP.";
-
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                    }
-
-                }
-
-            } catch (error) {
-
-                console.error("RSVP error:", error);
-
+            if (result.success) {
                 rsvpMessage.textContent =
-                    "Something went wrong. Please try again.";
+                    "Thank you! Your RSVP has been recorded.";
+            } else {
+                rsvpMessage.textContent =
+                    result.message || "Unable to submit your RSVP.";
 
                 if (submitButton) {
                     submitButton.disabled = false;
                 }
-
             }
 
-        }
-    );
+        } catch (error) {
 
+            console.error("RSVP error:", error);
+
+            rsvpMessage.textContent =
+                "Something went wrong. Please try again.";
+
+            if (submitButton) {
+                submitButton.disabled = false;
+            }
+        }
+    });
 }

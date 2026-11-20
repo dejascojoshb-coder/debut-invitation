@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Quinzeya U-Hee - Eighteen Ever After">
+
     <title>Quinzeya | Eighteen Ever After</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,19 +18,22 @@
         <source src="assets/music/background.mp3" type="audio/mpeg">
     </audio>
 
+
     <!-- GUEST VERIFICATION SCREEN -->
     <main id="verification-screen" class="verification-screen">
 
         <div class="verification-container">
 
-            <p class="small-heading">A PRIVATE CELEBRATION</p>
+            <p class="small-heading">
+                QUINZEYA U-HEE'S TURNS 18
+            </p>
 
-            <h1>Are You on the Guest List?</h1>
+            <h1>Your Invitation Awaits</h1>
 
             <p class="welcome-text">
-                An evening of elegance awaits.
-                Please enter your full name to discover
-                your exclusive invitation.
+                An evening of elegance and unforgettable memories awaits.
+                Please enter the name used for your invitation to view
+                the celebration details.
             </p>
 
             <form id="verification-form">
@@ -39,12 +44,15 @@
                     type="text"
                     id="guest-name"
                     placeholder="Enter your full name"
-                    autocomplete="name"
+                    autocomplete="off"
+                    list="guest-suggestions"
                     required
                 >
 
+                <datalist id="guest-suggestions"></datalist>
+
                 <button type="submit" id="verify-button">
-                    OPEN MY INVITATION
+                    VIEW MY INVITATION
                 </button>
 
             </form>
@@ -116,8 +124,7 @@
         </section>
 
 
-        <!-- REMAINING CANVA INVITATION IMAGES -->
-
+        <!-- INVITATION IMAGES -->
         <section class="invitation-image-section">
             <img
                 src="assets/images/invitation-02.png"
@@ -161,7 +168,7 @@
 
                 <h2>RSVP</h2>
 
-                <p>Will you be able to attend?</p>
+                <p>Will you be able to join us?</p>
 
                 <form id="rsvp-form">
 
@@ -194,6 +201,22 @@
                         </option>
 
                     </select>
+
+                    <div class="rsvp-note">
+
+                        <p class="rsvp-note-heading">
+                            A LITTLE NOTE
+                        </p>
+
+                        <p>
+                            To ensure a comfortable and intimate celebration,
+                            this invitation is reserved exclusively for the
+                            named guest. We kindly ask that no additional
+                            guests be brought along. Thank you for your
+                            understanding.
+                        </p>
+
+                    </div>
 
                     <button type="submit" id="rsvp-submit-button">
                         SUBMIT RSVP

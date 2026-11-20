@@ -301,3 +301,66 @@ button {
     }
 
 }
+
+/* =================================
+   VERIFICATION MESSAGE COLORS
+================================= */
+
+#verification-message {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+#verification-message.message-error {
+    color: #c62828;
+    font-weight: 600;
+}
+
+#verification-message.message-success {
+    color: #493c59;
+}
+
+
+/* =================================
+   AUTOCOMPLETE
+================================= */
+
+#guest-name {
+    width: 100%;
+}
+
+
+/* =================================
+   RSVP EXCLUSIVE INVITATION NOTE
+================================= */
+
+.rsvp-note {
+    margin: 22px 0;
+    padding: 16px;
+    border: 1px solid rgba(73, 60, 89, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.rsvp-note-heading {
+    margin-bottom: 8px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.rsvp-note p:last-child {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/* =================================
+   HIDDEN INVITATION SECTIONS
+================================= */
+
+[hidden] {
+    display: none !important;
+}

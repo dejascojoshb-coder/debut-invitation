@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Quinzeya U-Hee - Eighteen Ever After">
-
     <title>Quinzeya | Eighteen Ever After</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,15 +16,12 @@
         <source src="assets/music/background.mp3" type="audio/mpeg">
     </audio>
 
-
     <!-- GUEST VERIFICATION SCREEN -->
     <main id="verification-screen" class="verification-screen">
 
         <div class="verification-container">
 
-            <p class="small-heading">
-                QUINZEYA U-HEE'S TURNS 18
-            </p>
+            <p class="small-heading">QUINZEYA U-HEE'S TURNS 18</p>
 
             <h1>Your Invitation Awaits</h1>
 
@@ -40,19 +35,28 @@
 
                 <label for="guest-name">FULL NAME</label>
 
-                <input
-                    type="text"
-                    id="guest-name"
-                    placeholder="Enter your full name"
-                    autocomplete="off"
-                    list="guest-suggestions"
-                    required
-                >
+                <div class="autocomplete-wrapper">
 
-                <datalist id="guest-suggestions"></datalist>
+                    <input
+                        type="text"
+                        id="guest-name"
+                        placeholder="Enter your full name"
+                        autocomplete="off"
+                        autocapitalize="words"
+                        required
+                    >
+
+                    <div
+                        id="guest-suggestions"
+                        class="suggestions-list"
+                        role="listbox"
+                        hidden>
+                    </div>
+
+                </div>
 
                 <button type="submit" id="verify-button">
-                    VIEW MY INVITATION
+                    OPEN MY INVITATION
                 </button>
 
             </form>
@@ -82,11 +86,15 @@
 
 
         <!-- INVITATION IMAGE 01 -->
-        <section class="invitation-image-section">
+        <section
+            class="invitation-image-section"
+            data-invitation-number="1">
+
             <img
                 src="assets/images/invitation-01.png"
                 alt="Quinzeya's debut invitation - Part 1"
             >
+
         </section>
 
 
@@ -124,40 +132,81 @@
         </section>
 
 
-        <!-- INVITATION IMAGES -->
-        <section class="invitation-image-section">
+        <!-- INVITATION IMAGE 02.1 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="2.1">
+
             <img
-                src="assets/images/invitation-02.png"
-                alt="Invitation Part 2"
+                src="assets/images/invitation-02.1.png"
+                alt="Invitation Part 2.1"
             >
+
         </section>
 
-        <section class="invitation-image-section">
+
+        <!-- INVITATION IMAGE 02.2 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="2.2">
+
+            <img
+                src="assets/images/invitation-02.2.png"
+                alt="Invitation Part 2.2"
+            >
+
+        </section>
+
+
+        <!-- INVITATION IMAGE 03 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="3">
+
             <img
                 src="assets/images/invitation-03.png"
                 alt="Invitation Part 3"
             >
+
         </section>
 
-        <section class="invitation-image-section">
+
+        <!-- INVITATION IMAGE 04 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="4">
+
             <img
                 src="assets/images/invitation-04.png"
                 alt="Invitation Part 4"
             >
+
         </section>
 
-        <section class="invitation-image-section">
+
+        <!-- INVITATION IMAGE 05 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="5">
+
             <img
                 src="assets/images/invitation-05.png"
                 alt="Invitation Part 5"
             >
+
         </section>
 
-        <section class="invitation-image-section">
+
+        <!-- INVITATION IMAGE 06 -->
+        <section
+            class="invitation-image-section"
+            data-invitation-number="6">
+
             <img
                 src="assets/images/invitation-06.png"
                 alt="Invitation Part 6"
             >
+
         </section>
 
 
@@ -168,7 +217,22 @@
 
                 <h2>RSVP</h2>
 
-                <p>Will you be able to join us?</p>
+                <p>Will you be able to attend?</p>
+
+                <div class="rsvp-note">
+
+                    <p class="rsvp-note-heading">
+                        A PERSONAL INVITATION
+                    </p>
+
+                    <p>
+                        This invitation is exclusively reserved
+                        for the guest whose name appears on the
+                        invitation. We kindly ask that you respect
+                        this arrangement.
+                    </p>
+
+                </div>
 
                 <form id="rsvp-form">
 
@@ -201,22 +265,6 @@
                         </option>
 
                     </select>
-
-                    <div class="rsvp-note">
-
-                        <p class="rsvp-note-heading">
-                            A LITTLE NOTE
-                        </p>
-
-                        <p>
-                            To ensure a comfortable and intimate celebration,
-                            this invitation is reserved exclusively for the
-                            named guest. We kindly ask that no additional
-                            guests be brought along. Thank you for your
-                            understanding.
-                        </p>
-
-                    </div>
 
                     <button type="submit" id="rsvp-submit-button">
                         SUBMIT RSVP

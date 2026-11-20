@@ -3,25 +3,43 @@
    GOOGLE APPS SCRIPT CONNECTION
 ================================= */
 
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwlojt7SRVbvkqdYmKuok4KBGC9GZEx4p8p1VwA3YB6RFznzyDj8JgZw_J1q5LWp2zFOw/exec";
+const BACKEND_URL =
+"https://script.google.com/macros/s/AKfycbwlojt7SRVbvkqdYmKuok4KBGC9GZEx4p8p1VwA3YB6RFznzyDj8JgZw_J1q5LWp2zFOw/exec";
 
 
 /* =================================
    ELEMENTS
 ================================= */
 
-const verificationForm = document.getElementById("verification-form");
-const verificationScreen = document.getElementById("verification-screen");
-const invitationScreen = document.getElementById("invitation-screen");
-const verificationMessage = document.getElementById("verification-message");
-const guestNameInput = document.getElementById("guest-name");
-const guestSuggestions = document.getElementById("guest-suggestions");
+const verificationForm =
+    document.getElementById("verification-form");
 
-const music = document.getElementById("background-music");
-const musicButton = document.getElementById("music-button");
+const verificationScreen =
+    document.getElementById("verification-screen");
 
-const rsvpForm = document.getElementById("rsvp-form");
-const rsvpMessage = document.getElementById("rsvp-message");
+const invitationScreen =
+    document.getElementById("invitation-screen");
+
+const verificationMessage =
+    document.getElementById("verification-message");
+
+const guestNameInput =
+    document.getElementById("guest-name");
+
+const suggestionsBox =
+    document.getElementById("guest-suggestions");
+
+const music =
+    document.getElementById("background-music");
+
+const musicButton =
+    document.getElementById("music-button");
+
+const rsvpForm =
+    document.getElementById("rsvp-form");
+
+const rsvpMessage =
+    document.getElementById("rsvp-message");
 
 let verifiedGuestName = "";
 let verifiedGuestCategory = "";
@@ -29,15 +47,210 @@ let autocompleteTimer = null;
 
 
 /* =================================
-   MESSAGE STYLING
+   BACKEND REQUEST
 ================================= */
 
-function showVerificationMessage(message, isError = false) {
-    if (!verificationMessage) return;
+async function backendRequest(data) {
+
+    const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error("Backend request failed.");
+    }
+
+    return await response.json();
+}
+
+
+/* =================================
+   MESSAGE DISPLAY
+================================= */
+
+function showVerificationMessage(message, type = "error") {
 
     verificationMessage.textContent = message;
-    verificationMessage.classList.toggle("message-error", isError);
-    verificationMessage.classList.toggle("message-success", !isError);
+
+    verificationMessage.classList.remove(
+        "message-error",
+        "message-success"
+    );
+
+    if (type === "success") {
+        verificationMessage.classList.add("message-success");
+    } else {
+        verificationMessage.classList.add("message-error");
+    }
+}
+
+
+/* =================================
+   AUTOCOMPLETE SUGGESTIONS
+================================= */
+
+function closeSuggestions() {
+
+    suggestionsBox.innerHTML = "";
+    suggestionsBox.hidden = true;
+
+}
+
+
+function displaySuggestions(names) {
+
+    suggestionsBox.innerHTML = "";
+
+    if (!names || names.length === 0) {
+        closeSuggestions();
+        return;
+    }
+
+    names.forEach(function(name) {
+
+        const option = document.createElement("button");
+
+        option.type = "button";
+        option.className = "suggestion-item";
+        option.textContent = name;
+        option.setAttribute("role", "option");
+
+        option.addEventListener("click", function() {
+
+            guestNameInput.value = name;
+
+            closeSuggestions();
+
+            guestNameInput.focus();
+
+        });
+
+        suggestionsBox.appendChild(option);
+
+    });
+
+    suggestionsBox.hidden = false;
+
+}
+
+
+async function getNameSuggestions(query) {
+
+    try {
+
+        const result = await backendRequest({
+            action: "autocomplete",
+            query: query
+        });
+
+        if (result.success) {
+
+            displaySuggestions(result.suggestions);
+
+        } else {
+
+            closeSuggestions();
+
+        }
+
+    } catch (error) {
+
+        console.error("Autocomplete error:", error);
+
+        closeSuggestions();
+
+    }
+
+}
+
+
+if (guestNameInput) {
+
+    guestNameInput.addEventListener("input", function() {
+
+        clearTimeout(autocompleteTimer);
+
+        const query = guestNameInput.value.trim();
+
+        if (query.length < 2) {
+            closeSuggestions();
+            return;
+        }
+
+        autocompleteTimer = setTimeout(function() {
+            getNameSuggestions(query);
+        }, 300);
+
+    });
+
+    guestNameInput.addEventListener("focus", function() {
+
+        const query = guestNameInput.value.trim();
+
+        if (query.length >= 2) {
+            getNameSuggestions(query);
+        }
+
+    });
+
+    guestNameInput.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeSuggestions();
+        }
+
+    });
+
+    document.addEventListener("click", function(event) {
+
+        if (!event.target.closest(".autocomplete-wrapper")) {
+            closeSuggestions();
+        }
+
+    });
+
+}
+
+
+/* =================================
+   INVITATION CATEGORY ACCESS
+================================= */
+
+function applyInvitationAccess(category) {
+
+    const normalizedCategory =
+        String(category || "").trim().toUpperCase();
+
+    const restrictedVisitorPages = [
+        "2.2",
+        "3",
+        "4",
+        "5"
+    ];
+
+    const invitationSections = document.querySelectorAll(
+        ".invitation-image-section[data-invitation-number]"
+    );
+
+    invitationSections.forEach(function(section) {
+
+        const pageNumber =
+            section.dataset.invitationNumber;
+
+        if (normalizedCategory === "VISITOR") {
+
+            section.hidden =
+                restrictedVisitorPages.includes(pageNumber);
+
+        } else if (normalizedCategory === "GUEST") {
+
+            section.hidden = false;
+
+        }
+
+    });
+
 }
 
 
@@ -46,9 +259,11 @@ function showVerificationMessage(message, isError = false) {
 ================================= */
 
 async function playMusic() {
+
     if (!music) return;
 
     try {
+
         await music.play();
 
         if (musicButton) {
@@ -56,109 +271,41 @@ async function playMusic() {
         }
 
     } catch (error) {
-        console.log("Autoplay was blocked.");
+
+        console.log("Music playback requires user interaction.");
 
         if (musicButton) {
             musicButton.textContent = "PLAY MUSIC";
         }
+
     }
+
 }
+
 
 playMusic();
 
+
 if (musicButton) {
-    musicButton.addEventListener("click", async function () {
+
+    musicButton.addEventListener("click", async function() {
+
+        if (!music) return;
+
         if (music.paused) {
+
             await playMusic();
+
         } else {
+
             music.pause();
+
             musicButton.textContent = "PLAY MUSIC";
-        }
-    });
-}
 
-
-/* =================================
-   NAME AUTOCOMPLETE
-================================= */
-
-if (guestNameInput && guestSuggestions) {
-
-    guestNameInput.addEventListener("input", function () {
-        const query = guestNameInput.value.trim();
-
-        clearTimeout(autocompleteTimer);
-
-        if (query.length < 2) {
-            guestSuggestions.innerHTML = "";
-            return;
         }
 
-        autocompleteTimer = setTimeout(async function () {
-            try {
-                const response = await fetch(BACKEND_URL, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        action: "autocomplete",
-                        query: query
-                    })
-                });
-
-                const result = await response.json();
-
-                guestSuggestions.innerHTML = "";
-
-                if (result.success && Array.isArray(result.suggestions)) {
-                    result.suggestions.forEach(function (name) {
-                        const option = document.createElement("option");
-                        option.value = name;
-                        guestSuggestions.appendChild(option);
-                    });
-                }
-
-            } catch (error) {
-                console.error("Autocomplete error:", error);
-            }
-        }, 300);
     });
-}
 
-
-/* =================================
-   INVITATION ACCESS
-================================= */
-
-function applyInvitationAccess(category) {
-
-    const normalizedCategory = String(category || "").toUpperCase();
-
-    const invitationImages = document.querySelectorAll(
-        '#invitation-screen img[src*="invitation-"]'
-    );
-
-    invitationImages.forEach(function (img) {
-
-        const match = img.getAttribute("src").match(
-            /invitation-(\d+)\.(png|jpg|jpeg|webp)/i
-        );
-
-        if (!match) return;
-
-        const pageNumber = Number(match[1]);
-
-        const imageSection =
-            img.closest(".invitation-image-section") || img.parentElement;
-
-        if (!imageSection) return;
-
-        const isRestrictedPage = [3, 4, 5].includes(pageNumber);
-
-        if (normalizedCategory === "VISITOR" && isRestrictedPage) {
-            imageSection.hidden = true;
-        } else {
-            imageSection.hidden = false;
-        }
-    });
 }
 
 
@@ -168,70 +315,86 @@ function applyInvitationAccess(category) {
 
 if (verificationForm) {
 
-    verificationForm.addEventListener("submit", async function (event) {
+    verificationForm.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
+        closeSuggestions();
+
         const guestName = guestNameInput.value.trim();
 
-        const verifyButton = document.getElementById("verify-button");
+        const verifyButton =
+            document.getElementById("verify-button");
 
         if (!guestName) {
-            showVerificationMessage("Please enter your full name.", true);
+
+            showVerificationMessage(
+                "Please enter your full name."
+            );
+
             return;
+
         }
 
-        showVerificationMessage("Checking your invitation...", false);
+        showVerificationMessage(
+            "Checking your invitation...",
+            "success"
+        );
 
-        if (verifyButton) {
-            verifyButton.disabled = true;
-        }
+        verifyButton.disabled = true;
 
         try {
-            const response = await fetch(BACKEND_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "verify",
-                    name: guestName
-                })
+
+            const result = await backendRequest({
+                action: "verify",
+                name: guestName
             });
-
-            if (!response.ok) {
-                throw new Error("Server request failed.");
-            }
-
-            const result = await response.json();
 
             if (result.success) {
 
                 verifiedGuestName = result.name;
-                verifiedGuestCategory = result.category;
+
+                verifiedGuestCategory =
+                    String(result.category || "")
+                    .trim()
+                    .toUpperCase();
+
+                if (
+                    verifiedGuestCategory !== "VISITOR" &&
+                    verifiedGuestCategory !== "GUEST"
+                ) {
+                    throw new Error("Invalid guest category.");
+                }
 
                 document.getElementById("rsvp-name").value =
                     verifiedGuestName;
 
-                // Apply VISITOR or GUEST access.
+                // Apply category access.
                 applyInvitationAccess(verifiedGuestCategory);
 
-                showVerificationMessage("", false);
-
+                // Switch screens.
                 verificationScreen.hidden = true;
                 invitationScreen.hidden = false;
 
+                // Start music after guest interaction.
                 playMusic();
+
+                // Start countdown.
                 updateCountdown();
 
+                // Scroll to invitation beginning.
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
 
             } else {
+
                 showVerificationMessage(
                     result.message ||
-                    "Sorry, we couldn't find your name on the guest list. Please contact the celebrant for assistance.",
-                    true
+                    "Sorry, we couldn't find your name on the guest list."
                 );
+
             }
 
         } catch (error) {
@@ -239,18 +402,17 @@ if (verificationForm) {
             console.error("Verification error:", error);
 
             showVerificationMessage(
-                "Unable to verify your invitation. Please try again.",
-                true
+                "Unable to verify your invitation. Please try again."
             );
 
         } finally {
 
-            if (verifyButton) {
-                verifyButton.disabled = false;
-            }
+            verifyButton.disabled = false;
 
         }
+
     });
+
 }
 
 
@@ -262,9 +424,11 @@ const eventDate = new Date(
     "2026-12-18T16:00:00+08:00"
 ).getTime();
 
+
 function updateCountdown() {
 
     const now = Date.now();
+
     const difference = eventDate - now;
 
     const days = document.getElementById("days");
@@ -272,14 +436,19 @@ function updateCountdown() {
     const minutes = document.getElementById("minutes");
     const seconds = document.getElementById("seconds");
 
-    if (!days || !hours || !minutes || !seconds) return;
+    if (!days || !hours || !minutes || !seconds) {
+        return;
+    }
 
     if (difference <= 0) {
+
         days.textContent = "0";
         hours.textContent = "0";
         minutes.textContent = "0";
         seconds.textContent = "0";
+
         return;
+
     }
 
     days.textContent = Math.floor(
@@ -297,9 +466,12 @@ function updateCountdown() {
     seconds.textContent = Math.floor(
         (difference / 1000) % 60
     );
+
 }
 
+
 updateCountdown();
+
 setInterval(updateCountdown, 1000);
 
 
@@ -309,23 +481,29 @@ setInterval(updateCountdown, 1000);
 
 if (rsvpForm) {
 
-    rsvpForm.addEventListener("submit", async function (event) {
+    rsvpForm.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
         if (!verifiedGuestName) {
+
             rsvpMessage.textContent =
                 "Please verify your invitation first.";
+
             return;
+
         }
 
         const attendance =
             document.getElementById("attendance").value;
 
         if (!attendance) {
+
             rsvpMessage.textContent =
                 "Please select your attendance response.";
+
             return;
+
         }
 
         rsvpMessage.textContent = "Submitting your RSVP...";
@@ -333,37 +511,28 @@ if (rsvpForm) {
         const submitButton =
             document.getElementById("rsvp-submit-button");
 
-        if (submitButton) {
-            submitButton.disabled = true;
-        }
+        submitButton.disabled = true;
 
         try {
 
-            const response = await fetch(BACKEND_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "rsvp",
-                    name: verifiedGuestName,
-                    attendance: attendance
-                })
+            const result = await backendRequest({
+                action: "rsvp",
+                name: verifiedGuestName,
+                attendance: attendance
             });
 
-            if (!response.ok) {
-                throw new Error("RSVP request failed.");
-            }
-
-            const result = await response.json();
-
             if (result.success) {
+
                 rsvpMessage.textContent =
                     "Thank you! Your RSVP has been recorded.";
+
             } else {
+
                 rsvpMessage.textContent =
                     result.message || "Unable to submit your RSVP.";
 
-                if (submitButton) {
-                    submitButton.disabled = false;
-                }
+                submitButton.disabled = false;
+
             }
 
         } catch (error) {
@@ -373,9 +542,10 @@ if (rsvpForm) {
             rsvpMessage.textContent =
                 "Something went wrong. Please try again.";
 
-            if (submitButton) {
-                submitButton.disabled = false;
-            }
+            submitButton.disabled = false;
+
         }
+
     });
+
 }

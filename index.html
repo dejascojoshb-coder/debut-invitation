@@ -5,133 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ========================= -->
-    <!-- WEBSITE TITLE AND SEO -->
-    <!-- ========================= -->
-
     <title>Quinzeya U-Hee | Eighteenth Ever After</title>
 
-    <meta
-        name="title"
-        content="Quinzeya U-Hee | Eighteenth Ever After"
-    >
-
-    <meta
-        name="description"
-        content="You are cordially invited to celebrate Quinzeya U-Hee's eighteenth birthday. Join us for an evening of elegance and unforgettable memories."
-    >
-
+    <meta name="title" content="Quinzeya U-Hee | Eighteenth Ever After">
+    <meta name="description" content="You are cordially invited to celebrate Quinzeya U-Hee's eighteenth birthday. Join us for an evening of elegance and unforgettable memories.">
     <meta name="theme-color" content="#eee8f5">
 
-
-    <!-- ========================= -->
-    <!-- FACEBOOK / MESSENGER -->
-    <!-- OPEN GRAPH METADATA -->
-    <!-- ========================= -->
-
+    <!-- FACEBOOK / MESSENGER PREVIEW -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Quinzeya U-Hee">
+    <meta property="og:title" content="Quinzeya U-Hee | Eighteenth Ever After">
+    <meta property="og:description" content="An evening of elegance and unforgettable memories awaits. You are invited to celebrate Quinzeya U-Hee's eighteenth birthday.">
+    <meta property="og:url" content="https://debut-invitation-neon.vercel.app/">
+    <meta property="og:image" content="https://debut-invitation-neon.vercel.app/assets/images/invitation-01.png">
+    <meta property="og:image:alt" content="Quinzeya U-Hee's Eighteenth Ever After Invitation">
+    <meta property="og:image:type" content="image/png">
 
-    <meta
-        property="og:site_name"
-        content="Quinzeya U-Hee"
-    >
+    <!-- TWITTER / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quinzeya U-Hee | Eighteenth Ever After">
+    <meta name="twitter:description" content="You are cordially invited to celebrate Quinzeya U-Hee's eighteenth birthday.">
+    <meta name="twitter:image" content="https://debut-invitation-neon.vercel.app/assets/images/invitation-01.png">
 
-    <meta
-        property="og:title"
-        content="Quinzeya U-Hee | Eighteenth Ever After"
-    >
-
-    <meta
-        property="og:description"
-        content="An evening of elegance and unforgettable memories awaits. You are invited to celebrate Quinzeya U-Hee's eighteenth birthday."
-    >
-
-    <meta
-        property="og:url"
-        content="https://debut-invitation-neon.vercel.app/"
-    >
-
-    <!-- LINK PREVIEW IMAGE -->
-    <meta
-        property="og:image"
-        content="https://debut-invitation-neon.vercel.app/assets/images/invitation-01.png"
-    >
-
-    <meta
-        property="og:image:alt"
-        content="Quinzeya U-Hee's Eighteenth Ever After Invitation"
-    >
-
-    <meta
-        property="og:image:type"
-        content="image/png"
-    >
-
-
-    <!-- ========================= -->
-    <!-- TWITTER / X METADATA -->
-    <!-- ========================= -->
-
-    <meta
-        name="twitter:card"
-        content="summary_large_image"
-    >
-
-    <meta
-        name="twitter:title"
-        content="Quinzeya U-Hee | Eighteenth Ever After"
-    >
-
-    <meta
-        name="twitter:description"
-        content="You are cordially invited to celebrate Quinzeya U-Hee's eighteenth birthday."
-    >
-
-    <meta
-        name="twitter:image"
-        content="https://debut-invitation-neon.vercel.app/assets/images/invitation-01.png"
-    >
-
-
-    <!-- ========================= -->
-    <!-- ELEGANT TYPOGRAPHY -->
-    <!-- ========================= -->
-
+    <!-- TYPOGRAPHY -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600;6..96,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600;6..96,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-
-    <!-- ========================= -->
-    <!-- GUEST VERIFICATION SCREEN -->
-    <!-- ========================= -->
-
-    <section
-        id="verification-screen"
-        class="verification-screen"
-    >
-
+    <!-- GUEST VERIFICATION -->
+    <section id="verification-screen" class="verification-screen">
         <div class="verification-container">
 
-            <p class="eyebrow">
-                QUINZEYA U-HEE'S TURNS 18
-            </p>
+            <p class="eyebrow">QUINZEYA U-HEE'S TURNS 18</p>
 
             <h1>Your Invitation Awaits</h1>
 
@@ -141,9 +52,7 @@
                 the celebration details.
             </p>
 
-
             <form id="verification-form">
-
                 <div class="autocomplete-wrapper">
 
                     <input
@@ -161,262 +70,121 @@
                         role="listbox"
                         hidden
                     ></div>
-
                 </div>
 
-
-                <button
-                    type="submit"
-                    id="verify-button"
-                >
+                <button type="submit" id="verify-button">
                     View My Invitation
                 </button>
-
 
                 <p
                     id="verification-message"
                     class="verification-message"
                     aria-live="polite"
                 ></p>
-
             </form>
-
 
             <p class="verification-footer">
                 A private celebration awaits.
             </p>
 
         </div>
-
     </section>
 
 
+    <!-- MAIN INVITATION -->
+    <main id="invitation-screen" class="invitation-screen" hidden>
 
-    <!-- ========================= -->
-    <!-- MAIN INVITATION SCREEN -->
-    <!-- ========================= -->
-
-    <main
-        id="invitation-screen"
-        class="invitation-screen"
-        hidden
-    >
-
-
-        <!-- ========================= -->
-        <!-- INVITATION IMAGES -->
-        <!-- ========================= -->
-
+        <!-- INVITATION GALLERY -->
         <section class="invitation-gallery">
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="1"
-            >
-
-                <img
-                    src="assets/images/invitation-01.png"
-                    alt="Quinzeya debut invitation - Page 1"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="1">
+                <img src="assets/images/invitation-01.png" alt="Quinzeya debut invitation - Page 1">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="2.1"
-            >
-
-                <img
-                    src="assets/images/invitation-02.1.png"
-                    alt="Quinzeya debut invitation - Page 2"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="2.1">
+                <img src="assets/images/invitation-02.1.png" alt="Quinzeya debut invitation - Page 2">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="2.2"
-            >
-
-                <img
-                    src="assets/images/invitation-02.2.png"
-                    alt="Quinzeya debut invitation - Page 3"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="2.2">
+                <img src="assets/images/invitation-02.2.png" alt="Quinzeya debut invitation - Page 3">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="3"
-            >
-
-                <img
-                    src="assets/images/invitation-03.png"
-                    alt="Quinzeya debut invitation - Page 4"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="3">
+                <img src="assets/images/invitation-03.png" alt="Quinzeya debut invitation - Page 4">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="4"
-            >
-
-                <img
-                    src="assets/images/invitation-04.png"
-                    alt="Quinzeya debut invitation - Page 5"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="4">
+                <img src="assets/images/invitation-04.png" alt="Quinzeya debut invitation - Page 5">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="5"
-            >
-
-                <img
-                    src="assets/images/invitation-05.png"
-                    alt="Quinzeya debut invitation - Page 6"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="5">
+                <img src="assets/images/invitation-05.png" alt="Quinzeya debut invitation - Page 6">
             </div>
 
-
-            <div
-                class="invitation-image-section"
-                data-invitation-number="6"
-            >
-
-                <img
-                    src="assets/images/invitation-06.png"
-                    alt="Quinzeya debut invitation - Page 7"
-                >
-
+            <div class="invitation-image-section" data-invitation-number="6">
+                <img src="assets/images/invitation-06.png" alt="Quinzeya debut invitation - Page 7">
             </div>
-
 
         </section>
 
 
-
-        <!-- ========================= -->
-        <!-- COUNTDOWN SECTION -->
-        <!-- ========================= -->
-
-        <section
-            class="countdown-section"
-            id="countdown-section"
-        >
-
+        <!-- COUNTDOWN -->
+        <section class="countdown-section" id="countdown-section">
             <div class="countdown-content">
 
-                <p class="countdown-eyebrow">
-                    THE COUNTDOWN BEGINS
-                </p>
+                <p class="countdown-eyebrow">THE COUNTDOWN BEGINS</p>
 
-                <h2>
-                    Until the Celebration
-                </h2>
-
+                <h2>Until the Celebration</h2>
 
                 <div class="countdown-timer">
 
-
                     <div class="countdown-item">
-
                         <span id="days">00</span>
-
                         <small>Days</small>
-
                     </div>
 
-
                     <div class="countdown-item">
-
                         <span id="hours">00</span>
-
                         <small>Hours</small>
-
                     </div>
 
-
                     <div class="countdown-item">
-
                         <span id="minutes">00</span>
-
                         <small>Minutes</small>
-
                     </div>
-
 
                     <div class="countdown-item">
-
                         <span id="seconds">00</span>
-
                         <small>Seconds</small>
-
                     </div>
-
 
                 </div>
-
 
                 <p class="countdown-footer">
                     December 18, 2026
                 </p>
 
             </div>
-
         </section>
 
 
-
-        <!-- ========================= -->
-        <!-- RSVP SECTION -->
-        <!-- ========================= -->
-
-        <section
-            class="rsvp-section"
-            id="rsvp-section"
-        >
-
+        <!-- RSVP -->
+        <section class="rsvp-section" id="rsvp-section">
             <div class="rsvp-container">
 
+                <p class="rsvp-eyebrow">KINDLY RESPOND</p>
 
-                <p class="rsvp-eyebrow">
-                    KINDLY RESPOND
-                </p>
-
-
-                <h2>
-                    Will You Join Us?
-                </h2>
-
+                <h2>Will You Join Us?</h2>
 
                 <p class="rsvp-description">
                     Your presence would make this celebration
                     even more meaningful.
                 </p>
 
-
-
-                <!-- RSVP FORM -->
-
                 <form id="rsvp-form">
 
-
                     <div class="form-group">
-
-                        <label for="rsvp-name">
-                            Guest Name
-                        </label>
-
+                        <label for="rsvp-name">Guest Name</label>
 
                         <input
                             type="text"
@@ -424,70 +192,42 @@
                             name="name"
                             readonly
                         >
-
                     </div>
-
-
 
                     <p class="attendance-question">
                         Will you be attending?
                     </p>
 
-
-
                     <div class="attendance-options">
 
-
                         <label class="attendance-option">
-
                             <input
                                 type="radio"
                                 name="attendance"
                                 value="yes"
                                 required
                             >
-
-                            <span>
-                                Yes, I will gladly attend!
-                            </span>
-
+                            <span>Yes, I will gladly attend!</span>
                         </label>
 
-
-
                         <label class="attendance-option">
-
                             <input
                                 type="radio"
                                 name="attendance"
                                 value="no"
                             >
-
-                            <span>
-                                Regretfully, I won't be able to make it.
-                            </span>
-
+                            <span>Regretfully, I won't be able to make it.</span>
                         </label>
 
-
                     </div>
-
-
 
                     <p class="exclusive-note">
                         This RSVP is exclusive to the invited guest.
                     </p>
 
-
-
-                    <button
-                        type="submit"
-                        id="rsvp-submit-button"
-                    >
+                    <button type="submit" id="rsvp-submit-button">
                         Submit RSVP
                     </button>
-
-
 
                     <p
                         id="rsvp-message"
@@ -495,15 +235,10 @@
                         aria-live="polite"
                     ></p>
 
-
                 </form>
 
 
-
-                <!-- ========================= -->
-                <!-- VIEW MY CONFIRMATION -->
-                <!-- ========================= -->
-
+                <!-- RETURNING GUEST CONFIRMATION BUTTON -->
                 <button
                     type="button"
                     id="view-confirmation-button"
@@ -514,123 +249,72 @@
                 </button>
 
 
-
-                <!-- ========================= -->
                 <!-- PREVIOUS RSVP DETAILS -->
-                <!-- ========================= -->
-
                 <div
                     id="previous-confirmation"
                     class="previous-confirmation"
                     hidden
                 >
-
                     <p class="confirmation-heading">
                         Your RSVP Confirmation
                     </p>
 
-
                     <p>
                         <strong>Guest Name:</strong>
-
                         <span id="previous-confirmation-name"></span>
                     </p>
 
-
                     <p>
                         <strong>Table Number:</strong>
-
                         <span id="previous-confirmation-table"></span>
                     </p>
 
-
                     <p>
                         <strong>Your Response:</strong>
-
                         <span id="previous-confirmation-response"></span>
                     </p>
-
 
                     <p class="confirmation-reminder">
                         Please take a screenshot of this confirmation
                         and present it upon arrival. We look forward
                         to celebrating with you!
                     </p>
-
                 </div>
 
-
             </div>
-
         </section>
 
 
-
-        <!-- ========================= -->
-        <!-- THANK YOU CONFIRMATION -->
-        <!-- ========================= -->
-
-        <section
-            id="thank-you-screen"
-            class="thank-you-screen"
-            hidden
-        >
+        <!-- THANK YOU SCREEN -->
+        <section id="thank-you-screen" class="thank-you-screen" hidden>
 
             <div class="thank-you-card">
-
 
                 <p class="thank-you-eyebrow">
                     QUINZEYA U-HEE'S TURNS 18
                 </p>
 
-
-                <h1>
-                    Thank You!
-                </h1>
-
+                <h1>Thank You!</h1>
 
                 <p class="thank-you-message">
                     We're looking forward to celebrating
                     this special occasion with you.
                 </p>
 
-
                 <div class="thank-you-divider"></div>
 
+                <p class="confirmation-label">CONFIRMATION FOR</p>
 
+                <h2 id="confirmation-name">Guest Name</h2>
 
-                <p class="confirmation-label">
-                    CONFIRMATION FOR
-                </p>
-
-
-                <h2 id="confirmation-name">
-                    Guest Name
-                </h2>
-
-
-
-                <p class="confirmation-label">
-                    YOUR ASSIGNED TABLE
-                </p>
-
+                <p class="confirmation-label">YOUR ASSIGNED TABLE</p>
 
                 <div class="table-number-display">
-
                     <span>TABLE</span>
-
-                    <strong id="confirmation-table">
-                        --
-                    </strong>
-
+                    <strong id="confirmation-table">--</strong>
                 </div>
 
-
-
-                <p class="confirmation-label">
-                    YOUR RSVP RESPONSE
-                </p>
-
+                <p class="confirmation-label">YOUR RSVP RESPONSE</p>
 
                 <p
                     id="confirmation-response"
@@ -639,19 +323,11 @@
                     Your response
                 </p>
 
-
-
                 <div class="screenshot-reminder">
 
-                    <span class="camera-symbol">
-                        ✧
-                    </span>
+                    <span class="camera-symbol">✧</span>
 
-
-                    <h3>
-                        A Little Reminder
-                    </h3>
-
+                    <h3>A Little Reminder</h3>
 
                     <p>
                         Please take a screenshot of this confirmation
@@ -660,39 +336,37 @@
                         your table assignment.
                     </p>
 
-
                     <strong>
                         DON'T FORGET TO TAKE A SCREENSHOT!
                     </strong>
 
                 </div>
 
-
-
                 <p class="thank-you-footer">
                     With love, and see you at the celebration.
                 </p>
 
+                <!-- BACK TO INVITATION BUTTON -->
+                <button
+                    type="button"
+                    id="back-to-invitation-button"
+                    class="back-to-invitation-button"
+                >
+                    ← Back to Invitation
+                </button>
 
             </div>
-
         </section>
-
 
     </main>
 
 
-
-    <!-- ========================= -->
     <!-- BACKGROUND MUSIC -->
-    <!-- ========================= -->
-
     <audio
         id="background-music"
         src="assets/music/background.mp3"
         loop
     ></audio>
-
 
     <button
         id="music-toggle"
@@ -703,14 +377,7 @@
         ♫
     </button>
 
-
-
-    <!-- ========================= -->
-    <!-- JAVASCRIPT -->
-    <!-- ========================= -->
-
     <script src="script.js"></script>
-
 
 </body>
 </html>

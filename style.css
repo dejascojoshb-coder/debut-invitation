@@ -240,26 +240,56 @@ button:disabled {
     padding: 0;
 }
 
+/* All invitation pages */
+
 .invitation-image-section {
     display: block;
     width: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     border: 0;
     line-height: 0;
     font-size: 0;
     background: var(--background);
 }
 
+/* All invitation images */
+
 .invitation-image-section img {
     display: block;
     width: 100%;
     height: auto;
     max-width: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     border: 0;
     vertical-align: top;
+}
+
+/* INVITATION 01.1 AND 01.2 */
+
+.invitation-image-section[data-invitation-number="1.1"],
+.invitation-image-section[data-invitation-number="1.2"] {
+    display: block;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+}
+
+.invitation-image-section[data-invitation-number="1.1"] img,
+.invitation-image-section[data-invitation-number="1.2"] img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+    object-fit: contain;
+    object-position: center;
 }
 
 /* LANDSCAPE IMAGE 02.1 */
@@ -292,10 +322,9 @@ button:disabled {
     vertical-align: top;
 }
 
-/* REMOVE GAP AFTER INVITATION 02.1 */
+/* REMOVE GAPS BETWEEN CONSECUTIVE INVITATION IMAGES */
 
-.invitation-image-section[data-invitation-number="2.1"]
-+ .invitation-image-section {
+.invitation-image-section + .invitation-image-section {
     margin-top: 0 !important;
     padding-top: 0 !important;
 }

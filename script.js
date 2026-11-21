@@ -49,6 +49,7 @@ const confirmationResponse = document.getElementById("confirmation-response");
 const backToInvitationButton = document.getElementById("back-to-invitation-button");
 
 const backgroundMusic = document.getElementById("background-music");
+
 const musicToggle =
     document.getElementById("music-toggle") ||
     document.getElementById("music-button");
@@ -80,7 +81,10 @@ function showVerificationMessage(message, isError = false) {
 
     verificationMessage.textContent = message;
     verificationMessage.classList.toggle("error", isError);
-    verificationMessage.classList.toggle("success", !isError && Boolean(message));
+    verificationMessage.classList.toggle(
+        "success",
+        !isError && Boolean(message)
+    );
 }
 
 function showRSVPMessage(message, isError = false) {
@@ -88,7 +92,10 @@ function showRSVPMessage(message, isError = false) {
 
     rsvpMessage.textContent = message;
     rsvpMessage.classList.toggle("error", isError);
-    rsvpMessage.classList.toggle("success", !isError && Boolean(message));
+    rsvpMessage.classList.toggle(
+        "success",
+        !isError && Boolean(message)
+    );
 }
 
 
@@ -183,18 +190,26 @@ function applyInvitationAccess(category) {
         ".invitation-image-section"
     );
 
+    // VISITOR cannot access these invitations.
+    // Invitation 06 is intentionally NOT restricted.
     const restrictedForVisitors = ["2.2", "3", "4", "5"];
+
+    const normalizedCategory = String(category || "")
+        .trim()
+        .toUpperCase();
 
     invitationSections.forEach(section => {
         const invitationNumber = section.dataset.invitationNumber;
 
-        if (
-            category === "VISITOR" &&
-            restrictedForVisitors.includes(invitationNumber)
-        ) {
-            section.hidden = true;
-        } else {
+        if (normalizedCategory === "VISITOR") {
+            section.hidden = restrictedForVisitors.includes(
+                invitationNumber
+            );
+        } else if (normalizedCategory === "GUEST") {
             section.hidden = false;
+        } else {
+            // Unknown category: hide all invitation pages.
+            section.hidden = true;
         }
     });
 }
@@ -272,10 +287,21 @@ function updateCountdown() {
         return;
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / (1000 * 60)) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (difference / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (difference / 1000) % 60
+    );
 
     daysElement.textContent = String(days).padStart(2, "0");
     hoursElement.textContent = String(hours).padStart(2, "0");
@@ -349,7 +375,8 @@ function displayPreviousConfirmation() {
     if (!previousConfirmation) return;
 
     if (previousConfirmationName) {
-        previousConfirmationName.textContent = verifiedGuestName || "Guest";
+        previousConfirmationName.textContent =
+            verifiedGuestName || "Guest";
     }
 
     if (previousConfirmationTable) {
@@ -426,7 +453,8 @@ function showThankYouScreen(name, tableNumber, response) {
     }
 
     if (confirmationResponse) {
-        confirmationResponse.textContent = response || "Response recorded";
+        confirmationResponse.textContent =
+            response || "Response recorded";
     }
 
     hideInvitationSections();
@@ -441,8 +469,6 @@ function showThankYouScreen(name, tableNumber, response) {
 
     thankYouScreen.hidden = false;
 
-    // Make the previous confirmation button available
-    // when the guest returns to the invitation.
     if (viewConfirmationButton) {
         viewConfirmationButton.hidden = false;
     }
@@ -461,13 +487,10 @@ function showThankYouScreen(name, tableNumber, response) {
 function returnToInvitation() {
     if (!thankYouScreen || !invitationScreen) return;
 
-    // Hide the Thank You screen.
     thankYouScreen.hidden = true;
 
-    // Restore invitation gallery, countdown, and RSVP section.
     showInvitationSections();
 
-    // Keep the submitted RSVP protected.
     if (guestAlreadyResponded) {
         lockRSVPForm();
 
@@ -481,7 +504,6 @@ function returnToInvitation() {
         );
     }
 
-    // Return to the beginning of the invitation.
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -505,7 +527,10 @@ if (verificationForm) {
         const enteredName = guestNameInput.value.trim();
 
         if (!enteredName) {
-            showVerificationMessage("Please enter your full name.", true);
+            showVerificationMessage(
+                "Please enter your full name.",
+                true
+            );
             return;
         }
 
@@ -623,7 +648,10 @@ if (rsvpForm) {
         );
 
         if (!selectedAttendance) {
-            showRSVPMessage("Please select your RSVP response.", true);
+            showRSVPMessage(
+                "Please select your RSVP response.",
+                true
+            );
             return;
         }
 
@@ -649,8 +677,18 @@ if (rsvpForm) {
 
                 if (result.alreadyResponded) {
                     guestAlreadyResponded = true;
-                    previousRSVPResponse = result.response || "";
+
+                    previousRSVPResponse =
+                        result.response || "";
+
+                    verifiedTableNumber =
+                        result.tableNumber || verifiedTableNumber;
+
                     lockRSVPForm();
+
+                    if (viewConfirmationButton) {
+                        viewConfirmationButton.hidden = false;
+                    }
                 } else {
                     rsvpSubmitButton.disabled = false;
                     rsvpSubmitButton.textContent = "Submit RSVP";
@@ -712,7 +750,5 @@ if (viewConfirmationButton) {
 }
 
 if (backToInvitationButton) {
-    // The button belongs only on the Thank You screen.
-    // Its parent screen starts hidden.
     backToInvitationButton.hidden = false;
 }

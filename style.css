@@ -1,7 +1,7 @@
 
 /* ==========================================
    QUINZEYA | EIGHTEEN EVER AFTER
-   COMPLETE STYLESHEET
+   COMPLETE CLEANED STYLESHEET
 ========================================== */
 
 /* 1. GLOBAL SETTINGS */
@@ -64,11 +64,10 @@ button:disabled {
     align-items: center;
     justify-content: center;
     padding: 35px 20px;
-    background:
-        linear-gradient(
-            rgba(238, 232, 245, 0.88),
-            rgba(238, 232, 245, 0.94)
-        );
+    background: linear-gradient(
+        rgba(238, 232, 245, 0.88),
+        rgba(238, 232, 245, 0.94)
+    );
 }
 
 .verification-container {
@@ -235,14 +234,20 @@ button:disabled {
 }
 
 .invitation-gallery {
-    width: 100%;
-}
-
-.invitation-image-section {
+    display: block;
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.invitation-image-section {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
     line-height: 0;
+    font-size: 0;
     background: var(--background);
 }
 
@@ -251,8 +256,48 @@ button:disabled {
     width: 100%;
     height: auto;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: top;
+}
+
+/* LANDSCAPE IMAGE 02.1 */
+
+.invitation-image-section[data-invitation-number="2.1"] {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0;
+    background: var(--background);
+}
+
+.invitation-image-section[data-invitation-number="2.1"] img {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-width: 100%;
+    max-height: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
     object-fit: contain;
+    object-position: center;
+    vertical-align: top;
+}
+
+/* REMOVE GAP AFTER INVITATION 02.1 */
+
+.invitation-image-section[data-invitation-number="2.1"]
++ .invitation-image-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 
@@ -606,11 +651,10 @@ button:disabled {
     align-items: center;
     justify-content: center;
     padding: 45px 20px;
-    background:
-        linear-gradient(
-            rgba(238, 232, 245, 0.94),
-            rgba(238, 232, 245, 0.97)
-        );
+    background: linear-gradient(
+        rgba(238, 232, 245, 0.94),
+        rgba(238, 232, 245, 0.97)
+    );
 }
 
 .thank-you-card {
@@ -773,9 +817,7 @@ button:disabled {
     font-weight: 500;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .back-to-invitation-button:hover {
@@ -808,9 +850,7 @@ button:disabled {
     font-family: Georgia, serif;
     font-size: 22px;
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .music-toggle:hover {
@@ -867,6 +907,7 @@ button:disabled {
 /* 14. TABLET RESPONSIVENESS */
 
 @media (max-width: 900px) {
+
     .countdown-section {
         min-height: 450px;
         padding: 60px 20px;
@@ -879,12 +920,14 @@ button:disabled {
     .thank-you-card {
         max-width: 530px;
     }
+
 }
 
 
 /* 15. MOBILE RESPONSIVENESS */
 
 @media (max-width: 600px) {
+
     .verification-screen {
         padding: 22px 15px;
     }
@@ -990,12 +1033,14 @@ button:disabled {
         width: 43px;
         height: 43px;
     }
+
 }
 
 
 /* 16. SMALL MOBILE SCREENS */
 
 @media (max-width: 380px) {
+
     .verification-container {
         padding: 35px 18px;
     }
@@ -1037,12 +1082,14 @@ button:disabled {
         width: 105px;
         min-height: 105px;
     }
+
 }
 
 
 /* 17. LANDSCAPE MOBILE SCREENS */
 
 @media (max-height: 500px) and (orientation: landscape) {
+
     .verification-screen {
         min-height: 100vh;
         padding: 25px 15px;
@@ -1078,6 +1125,7 @@ button:disabled {
     .thank-you-screen {
         align-items: flex-start;
     }
+
 }
 
 
@@ -1090,6 +1138,7 @@ input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -1098,26 +1147,5 @@ input:focus-visible {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-}
-/* ==========================================
-   LANDSCAPE INVITATION 02.1
-========================================== */
 
-.invitation-page[data-invitation-number="2.1"] {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.invitation-page[data-invitation-number="2.1"] img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    max-height: none;
-    object-fit: contain;
-    object-position: center;
 }

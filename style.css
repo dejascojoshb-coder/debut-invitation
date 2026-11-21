@@ -1099,3 +1099,25 @@ input:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+/* ==========================================
+   LANDSCAPE INVITATION 02.1
+========================================== */
+
+.invitation-page[data-invitation-number="2.1"] {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.invitation-page[data-invitation-number="2.1"] img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+}

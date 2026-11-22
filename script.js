@@ -155,6 +155,9 @@ if (guestNameInput) {
                     query: query
                 });
 
+                // Prevent outdated autocomplete results.
+                if (guestNameInput.value.trim() !== query) return;
+
                 if (result.success) {
                     showSuggestions(result.suggestions);
                 }
@@ -191,8 +194,8 @@ function applyInvitationAccess(category) {
     );
 
     // VISITOR cannot access these invitations.
-    // Invitation 06 is intentionally NOT restricted.
-    const restrictedForVisitors = ["2.2", "3", "4", "5"];
+    // Invitation 05.2 and Invitation 06 remain accessible.
+    const restrictedForVisitors = ["2.2", "3", "4", "5.1"];
 
     const normalizedCategory = String(category || "")
         .trim()
@@ -555,9 +558,22 @@ if (verificationForm) {
                 return;
             }
 
+            // Validate category before granting access.
+            const category = String(result.category || "")
+                .trim()
+                .toUpperCase();
+
+            if (category !== "VISITOR" && category !== "GUEST") {
+                showVerificationMessage(
+                    "Your guest category is missing or invalid. Please contact the celebrant.",
+                    true
+                );
+                return;
+            }
+
             // Save verified guest details.
             verifiedGuestName = result.name;
-            verifiedGuestCategory = result.category;
+            verifiedGuestCategory = category;
             verifiedTableNumber = result.tableNumber || "";
 
             guestAlreadyResponded = Boolean(result.alreadyResponded);

@@ -844,33 +844,55 @@ button:disabled {
     font-weight: 500;
 }
 
-.table-number-display {
-    width: 120px;
-    min-height: 115px;
+/* ==========================================
+   TABLE ASSIGNMENT DISPLAY
+   A1, A2, A3, A4
+   B1, B2, B5, B6
+   B3-B4
+   GARDEN
+========================================== */
 
-    display: flex;
+.table-number-display {
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 13px;
 
-    margin: 15px auto 25px;
+    width: max-content;
+    min-width: 112px;
+    max-width: calc(100vw - 60px);
+    min-height: 135px;
+
+    margin: 20px auto 30px;
+    padding: 14px 18px;
 
     border: 1px solid var(--champagne);
     background: #f9f5ee;
     color: var(--deep-plum);
+
+    text-align: center;
 }
 
 .table-number-display span {
     font-family: "Montserrat", sans-serif;
     font-size: 10px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    line-height: 1.4;
+    white-space: nowrap;
 }
 
 .table-number-display strong {
+    display: block;
+    max-width: 100%;
+
     font-family: "Bodoni Moda", serif;
-    font-size: 39px;
+    font-size: clamp(25px, 7vw, 34px);
     font-weight: 500;
+    line-height: 1.15;
+
+    white-space: nowrap;
+    text-align: center;
 }
 
 .confirmation-response {
@@ -1194,6 +1216,16 @@ button:disabled {
         height: 43px;
     }
 
+    .table-number-display {
+        min-height: 125px;
+        padding: 13px 16px;
+        gap: 12px;
+    }
+
+    .table-number-display strong {
+        font-size: clamp(24px, 7vw, 31px);
+    }
+
 }
 
 /* ==========================================
@@ -1240,8 +1272,13 @@ button:disabled {
     }
 
     .table-number-display {
-        width: 105px;
-        min-height: 105px;
+        min-width: 105px;
+        min-height: 120px;
+        padding: 12px 14px;
+    }
+
+    .table-number-display strong {
+        font-size: 24px;
     }
 
 }

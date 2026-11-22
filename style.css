@@ -1,23 +1,26 @@
 
 /* ==========================================
    QUINZEYA | EIGHTEEN EVER AFTER
-   COMPLETE CLEANED STYLESHEET
+   COMPLETE UPDATED STYLESHEET
+   FAIRYTALE LAVENDER THEME
 ========================================== */
 
-/* 1. GLOBAL SETTINGS */
+/* ==========================================
+   1. GLOBAL SETTINGS
+========================================== */
 
 * {
     box-sizing: border-box;
 }
 
 :root {
-    --background: #eee8f5;
-    --deep-plum: #493c59;
-    --soft-plum: #766582;
+    --background: #eee6f5;
+    --deep-plum: #49345f;
+    --soft-plum: #76608f;
     --light-plum: #a99ab7;
-    --champagne: #c6a76b;
-    --soft-gold: #b99b75;
-    --cream: #fffdf9;
+    --champagne: #e9c783;
+    --soft-gold: #c6a76b;
+    --cream: #fff9f2;
     --white: #ffffff;
     --error: #b84a4a;
     --success: #567b61;
@@ -54,8 +57,9 @@ button:disabled {
     display: none !important;
 }
 
-
-/* 2. GUEST VERIFICATION SCREEN */
+/* ==========================================
+   2. GUEST VERIFICATION SCREEN
+========================================== */
 
 .verification-screen {
     min-height: 100vh;
@@ -64,10 +68,18 @@ button:disabled {
     align-items: center;
     justify-content: center;
     padding: 35px 20px;
-    background: linear-gradient(
-        rgba(238, 232, 245, 0.88),
-        rgba(238, 232, 245, 0.94)
-    );
+
+    background-color: #a88ac6;
+    background-image:
+        linear-gradient(
+            rgba(73, 52, 95, 0.13),
+            rgba(73, 52, 95, 0.22)
+        ),
+        url("assets/images/bg-1.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .verification-container {
@@ -75,9 +87,17 @@ button:disabled {
     max-width: 490px;
     padding: 55px 38px;
     text-align: center;
-    background: rgba(255, 253, 249, 0.88);
-    border: 1px solid rgba(198, 167, 107, 0.55);
-    box-shadow: 0 15px 50px rgba(73, 60, 89, 0.08);
+
+    background: rgba(255, 249, 242, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(233, 199, 131, 0.75);
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 50px rgba(55, 35, 75, 0.20);
+
     animation: fadeIn 1s ease;
 }
 
@@ -93,6 +113,7 @@ button:disabled {
 
 .verification-container h1 {
     margin: 0 0 20px;
+    color: var(--deep-plum);
     font-family: "Bodoni Moda", serif;
     font-size: clamp(32px, 6vw, 43px);
     font-weight: 500;
@@ -121,28 +142,34 @@ button:disabled {
     width: 100%;
     min-height: 52px;
     padding: 14px 16px;
-    border: 1px solid #d8cbdc;
-    border-radius: 2px;
+
+    border: 1px solid #d9c7e5;
+    border-radius: 10px;
     outline: none;
-    background: var(--white);
+
+    background: rgba(255, 255, 255, 0.95);
     color: var(--deep-plum);
+
     font-family: "Montserrat", sans-serif;
     font-size: 13px;
     text-align: center;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 #guest-name:focus {
     border-color: var(--champagne);
-    box-shadow: 0 0 0 3px rgba(198, 167, 107, 0.12);
+    box-shadow: 0 0 0 3px rgba(198, 167, 107, 0.16);
 }
 
 #guest-name::placeholder {
     color: #a99eae;
 }
 
-
-/* 3. AUTOCOMPLETE SUGGESTIONS */
+/* ==========================================
+   3. AUTOCOMPLETE SUGGESTIONS
+========================================== */
 
 .suggestions-list {
     position: absolute;
@@ -153,9 +180,12 @@ button:disabled {
     max-height: 220px;
     overflow-y: auto;
     padding: 5px;
-    border: 1px solid #d8cbdc;
-    background: var(--white);
-    box-shadow: 0 10px 25px rgba(73, 60, 89, 0.12);
+
+    border: 1px solid #d9c7e5;
+    border-radius: 10px;
+
+    background: var(--cream);
+    box-shadow: 0 10px 25px rgba(73, 52, 95, 0.15);
     text-align: left;
 }
 
@@ -164,34 +194,43 @@ button:disabled {
     width: 100%;
     padding: 12px 14px;
     border: none;
+    border-radius: 6px;
+
     background: transparent;
     color: var(--deep-plum);
+
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
     text-align: left;
+
     transition: background 0.2s ease;
 }
 
 .suggestion-item:hover,
 .suggestion-item:focus {
     outline: none;
-    background: #f1ebf5;
+    background: #eee6f5;
 }
 
 #verify-button {
     width: 100%;
     min-height: 52px;
     padding: 14px 20px;
-    border: 1px solid var(--soft-gold);
-    border-radius: 2px;
+
+    border: 1px solid var(--champagne);
+    border-radius: 10px;
+
     background: var(--deep-plum);
     color: var(--white);
+
     font-family: "Montserrat", sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.3s ease;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
 }
 
 #verify-button:hover {
@@ -224,8 +263,9 @@ button:disabled {
     font-style: italic;
 }
 
-
-/* 4. INVITATION GALLERY */
+/* ==========================================
+   4. INVITATION GALLERY
+========================================== */
 
 .invitation-screen {
     width: 100%;
@@ -240,8 +280,6 @@ button:disabled {
     padding: 0;
 }
 
-/* All invitation pages */
-
 .invitation-image-section {
     display: block;
     width: 100%;
@@ -252,8 +290,6 @@ button:disabled {
     font-size: 0;
     background: var(--background);
 }
-
-/* All invitation images */
 
 .invitation-image-section img {
     display: block;
@@ -266,7 +302,7 @@ button:disabled {
     vertical-align: top;
 }
 
-/* INVITATION 01.1 AND 01.2 */
+/* INVITATION 01 */
 
 .invitation-image-section[data-invitation-number="1.1"],
 .invitation-image-section[data-invitation-number="1.2"] {
@@ -322,25 +358,29 @@ button:disabled {
     vertical-align: top;
 }
 
-/* REMOVE GAPS BETWEEN CONSECUTIVE INVITATION IMAGES */
+/* REMOVE GAPS BETWEEN IMAGES */
 
 .invitation-image-section + .invitation-image-section {
     margin-top: 0 !important;
     padding-top: 0 !important;
 }
 
-
-/* 5. COUNTDOWN SECTION */
+/* ==========================================
+   5. COUNTDOWN SECTION
+========================================== */
 
 .countdown-section {
     position: relative;
     width: 100%;
     min-height: 520px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 70px 20px;
     overflow: hidden;
+
     background-color: var(--deep-plum);
     background-image:
         linear-gradient(
@@ -348,6 +388,7 @@ button:disabled {
             rgba(38, 28, 47, 0.20)
         ),
         url("assets/images/bg-2.png");
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -394,7 +435,7 @@ button:disabled {
 }
 
 .countdown-item span {
-    color: #ffffff;
+    color: var(--white);
     font-family: "Bodoni Moda", serif;
     font-size: clamp(36px, 7vw, 55px);
     font-weight: 500;
@@ -422,24 +463,29 @@ button:disabled {
     letter-spacing: 1px;
 }
 
-
-/* 6. RSVP SECTION */
+/* ==========================================
+   6. RSVP SECTION
+========================================== */
 
 .rsvp-section {
     position: relative;
     width: 100%;
     min-height: 650px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 75px 20px;
-    background-color: #eee8f5;
+
+    background-color: #a88ac6;
     background-image:
         linear-gradient(
-            rgba(238, 232, 245, 0.22),
-            rgba(238, 232, 245, 0.22)
+            rgba(73, 52, 95, 0.10),
+            rgba(73, 52, 95, 0.18)
         ),
         url("assets/images/bg-1.png");
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -449,9 +495,16 @@ button:disabled {
     width: 100%;
     max-width: 490px;
     padding: 45px 35px;
-    border: 1px solid rgba(198, 167, 107, 0.65);
-    background: rgba(255, 253, 249, 0.94);
-    box-shadow: 0 15px 45px rgba(73, 60, 89, 0.10);
+
+    background: rgba(255, 249, 242, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(233, 199, 131, 0.75);
+    border-radius: 20px;
+
+    box-shadow: 0 15px 45px rgba(55, 35, 75, 0.20);
+
     text-align: center;
 }
 
@@ -498,11 +551,14 @@ button:disabled {
     width: 100%;
     min-height: 48px;
     padding: 12px 14px;
-    border: 1px solid #d8cbdc;
-    border-radius: 2px;
+
+    border: 1px solid #d9c7e5;
+    border-radius: 10px;
     outline: none;
-    background: #f8f5fa;
+
+    background: rgba(255, 255, 255, 0.95);
     color: var(--deep-plum);
+
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
 }
@@ -527,18 +583,24 @@ button:disabled {
     align-items: flex-start;
     gap: 11px;
     padding: 14px;
-    border: 1px solid #e1d7e5;
-    background: #fffdfd;
+
+    border: 1px solid #d9c7e5;
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.80);
     color: var(--deep-plum);
+
     font-size: 17px;
     line-height: 1.4;
     cursor: pointer;
-    transition: border-color 0.25s ease, background 0.25s ease;
+
+    transition: border-color 0.25s ease,
+                background 0.25s ease;
 }
 
 .attendance-option:hover {
     border-color: var(--champagne);
-    background: #faf7fc;
+    background: #f5edf8;
 }
 
 .attendance-option input {
@@ -558,16 +620,21 @@ button:disabled {
     width: 100%;
     min-height: 52px;
     padding: 14px 20px;
-    border: 1px solid var(--soft-gold);
-    border-radius: 2px;
+
+    border: 1px solid var(--champagne);
+    border-radius: 10px;
+
     background: var(--deep-plum);
     color: var(--white);
+
     font-family: "Montserrat", sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.3s ease;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
 }
 
 #rsvp-submit-button:hover:not(:disabled) {
@@ -583,8 +650,9 @@ button:disabled {
     line-height: 1.6;
 }
 
-
-/* 7. VIEW MY CONFIRMATION BUTTON */
+/* ==========================================
+   7. VIEW MY CONFIRMATION BUTTON
+========================================== */
 
 .view-confirmation-button {
     display: block;
@@ -593,16 +661,21 @@ button:disabled {
     min-height: 50px;
     margin: 20px auto;
     padding: 14px 20px;
-    border: 1px solid var(--soft-gold);
-    border-radius: 2px;
+
+    border: 1px solid var(--champagne);
+    border-radius: 10px;
+
     background: var(--deep-plum);
     color: var(--white);
+
     font-family: "Montserrat", sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.3s ease;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
 }
 
 .view-confirmation-button:hover {
@@ -619,22 +692,29 @@ button:disabled {
     display: none !important;
 }
 
-
-/* 8. PREVIOUS RSVP CONFIRMATION */
+/* ==========================================
+   8. PREVIOUS RSVP CONFIRMATION
+========================================== */
 
 .previous-confirmation {
     width: 100%;
     max-width: 480px;
     margin: 28px auto 10px;
     padding: 30px 25px;
-    border: 1px solid var(--soft-gold);
-    background: rgba(255, 253, 249, 0.97);
+
+    border: 1px solid var(--champagne);
+    border-radius: 14px;
+
+    background: rgba(255, 249, 242, 0.97);
     color: var(--deep-plum);
+
     text-align: center;
     font-family: "Cormorant Garamond", serif;
     font-size: 19px;
     line-height: 1.6;
-    box-shadow: 0 10px 30px rgba(73, 60, 89, 0.08);
+
+    box-shadow: 0 10px 30px rgba(55, 35, 75, 0.10);
+
     animation: confirmationFadeIn 0.7s ease;
 }
 
@@ -669,30 +749,48 @@ button:disabled {
     line-height: 1.6;
 }
 
-
-/* 9. THANK YOU SCREEN */
+/* ==========================================
+   9. THANK YOU SCREEN
+========================================== */
 
 .thank-you-screen {
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 45px 20px;
-    background: linear-gradient(
-        rgba(238, 232, 245, 0.94),
-        rgba(238, 232, 245, 0.97)
-    );
+
+    background-color: #a88ac6;
+    background-image:
+        linear-gradient(
+            rgba(73, 52, 95, 0.15),
+            rgba(73, 52, 95, 0.22)
+        ),
+        url("assets/images/bg-1.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .thank-you-card {
     width: 100%;
     max-width: 570px;
     padding: 50px 38px;
-    border: 1px solid rgba(198, 167, 107, 0.7);
-    background: rgba(255, 253, 249, 0.96);
-    box-shadow: 0 15px 50px rgba(73, 60, 89, 0.10);
+
+    border: 1px solid rgba(233, 199, 131, 0.75);
+    border-radius: 20px;
+
+    background: rgba(255, 249, 242, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 15px 50px rgba(55, 35, 75, 0.18);
+
     text-align: center;
     animation: fadeIn 0.9s ease;
 }
@@ -749,12 +847,15 @@ button:disabled {
 .table-number-display {
     width: 120px;
     min-height: 115px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5px;
+
     margin: 15px auto 25px;
+
     border: 1px solid var(--champagne);
     background: #f9f5ee;
     color: var(--deep-plum);
@@ -780,13 +881,17 @@ button:disabled {
     line-height: 1.5;
 }
 
-
-/* 10. SCREENSHOT REMINDER */
+/* ==========================================
+   10. SCREENSHOT REMINDER
+========================================== */
 
 .screenshot-reminder {
     margin: 35px 0 25px;
     padding: 25px 22px;
+
     border: 1px solid #e2d5c3;
+    border-radius: 12px;
+
     background: #faf7f1;
     color: var(--deep-plum);
 }
@@ -830,23 +935,29 @@ button:disabled {
     font-style: italic;
 }
 
-
-/* 11. BACK TO INVITATION BUTTON */
+/* ==========================================
+   11. BACK TO INVITATION BUTTON
+========================================== */
 
 .back-to-invitation-button {
     display: inline-block;
     margin-top: 25px;
     padding: 14px 30px;
-    border: 1px solid var(--soft-gold);
-    border-radius: 2px;
+
+    border: 1px solid var(--champagne);
+    border-radius: 10px;
+
     background: var(--deep-plum);
     color: var(--white);
+
     font-family: "Montserrat", sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.3s ease;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
 }
 
 .back-to-invitation-button:hover {
@@ -859,27 +970,36 @@ button:disabled {
     outline-offset: 4px;
 }
 
-
-/* 12. BACKGROUND MUSIC BUTTON */
+/* ==========================================
+   12. BACKGROUND MUSIC BUTTON
+========================================== */
 
 .music-toggle {
     position: fixed;
     z-index: 500;
     right: 22px;
     bottom: 22px;
+
     width: 48px;
     height: 48px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(198, 167, 107, 0.85);
+
+    border: 1px solid rgba(233, 199, 131, 0.85);
     border-radius: 50%;
-    background: rgba(73, 60, 89, 0.92);
+
+    background: rgba(73, 52, 95, 0.94);
     color: var(--white);
+
     font-family: Georgia, serif;
     font-size: 22px;
+
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-    transition: background 0.3s ease, transform 0.3s ease;
+
+    transition: background 0.3s ease,
+                transform 0.3s ease;
 }
 
 .music-toggle:hover {
@@ -891,8 +1011,9 @@ button:disabled {
     animation: musicPulse 2s ease-in-out infinite;
 }
 
-
-/* 13. ANIMATIONS */
+/* ==========================================
+   13. ANIMATIONS
+========================================== */
 
 @keyframes fadeIn {
     from {
@@ -920,20 +1041,21 @@ button:disabled {
 
 @keyframes musicPulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(198, 167, 107, 0.35);
+        box-shadow: 0 0 0 0 rgba(233, 199, 131, 0.35);
     }
 
     70% {
-        box-shadow: 0 0 0 9px rgba(198, 167, 107, 0);
+        box-shadow: 0 0 0 9px rgba(233, 199, 131, 0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(198, 167, 107, 0);
+        box-shadow: 0 0 0 0 rgba(233, 199, 131, 0);
     }
 }
 
-
-/* 14. TABLET RESPONSIVENESS */
+/* ==========================================
+   14. TABLET RESPONSIVENESS
+========================================== */
 
 @media (max-width: 900px) {
 
@@ -952,17 +1074,21 @@ button:disabled {
 
 }
 
-
-/* 15. MOBILE RESPONSIVENESS */
+/* ==========================================
+   15. MOBILE RESPONSIVENESS
+========================================== */
 
 @media (max-width: 600px) {
 
     .verification-screen {
         padding: 22px 15px;
+        background-attachment: scroll;
+        background-position: center center;
     }
 
     .verification-container {
         padding: 42px 23px;
+        background: rgba(255, 249, 242, 0.94);
     }
 
     .welcome-message {
@@ -1005,11 +1131,13 @@ button:disabled {
     .rsvp-section {
         min-height: 600px;
         padding: 45px 15px;
-        background-position: center;
+        background-attachment: scroll;
+        background-position: center center;
     }
 
     .rsvp-container {
         padding: 35px 22px;
+        background: rgba(255, 249, 242, 0.94);
     }
 
     .rsvp-description {
@@ -1032,10 +1160,13 @@ button:disabled {
 
     .thank-you-screen {
         padding: 25px 14px;
+        background-attachment: scroll;
+        background-position: center center;
     }
 
     .thank-you-card {
         padding: 38px 22px;
+        background: rgba(255, 249, 242, 0.95);
     }
 
     .thank-you-message {
@@ -1065,8 +1196,9 @@ button:disabled {
 
 }
 
-
-/* 16. SMALL MOBILE SCREENS */
+/* ==========================================
+   16. SMALL MOBILE SCREENS
+========================================== */
 
 @media (max-width: 380px) {
 
@@ -1114,8 +1246,9 @@ button:disabled {
 
 }
 
-
-/* 17. LANDSCAPE MOBILE SCREENS */
+/* ==========================================
+   17. LANDSCAPE MOBILE SCREENS
+========================================== */
 
 @media (max-height: 500px) and (orientation: landscape) {
 
@@ -1157,8 +1290,9 @@ button:disabled {
 
 }
 
-
-/* 18. ACCESSIBILITY */
+/* ==========================================
+   18. ACCESSIBILITY
+========================================== */
 
 button:focus-visible,
 input:focus-visible {
